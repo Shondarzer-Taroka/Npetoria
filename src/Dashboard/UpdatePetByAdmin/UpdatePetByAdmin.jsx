@@ -1,6 +1,6 @@
 
 
-const PetListing = () => {
+const UpdatePetByAdmin = () => {
     return (
         <div>
             
@@ -8,4 +8,4 @@ const PetListing = () => {
     );
 };
 
-export default PetListing;
+export default UpdatePetByAdmin;

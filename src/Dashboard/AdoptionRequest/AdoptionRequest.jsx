@@ -1,10 +1,10 @@
 
-// const AdoptionRequest = () => {
-//     return (
-//         <div>
-//             AdoptionRequest
-//         </div>
-//     );
-// };
+const AdoptionRequest = () => {
+    return (
+        <div>
+            AdoptionRequest
+        </div>
+    );
+};
 
-// export default AdoptionRequest;
+export default AdoptionRequest;

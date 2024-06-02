@@ -14,6 +14,7 @@ import Users from "../Dashboard/Users/Users"
 import AllPets from "../Dashboard/AllPets/AllPets"
 import AllDonations from "../Dashboard/AllDonations/AllDonations"
 import EditDonation from "../Dashboard/EditDonation/EditDonation"
+import UpdatePet from "../Dashboard/UpdatePet/UpdatePet"
 
 
 let router=createBrowserRouter([
@@ -59,6 +60,10 @@ let router=createBrowserRouter([
             {
                 path:'myaddedpet',
                 element:<MyAddedPets></MyAddedPets>
+            },
+            {
+                path:'updatepet/:id',
+                element: <UpdatePet></UpdatePet>
             },
             {
                 path:'adoptionrequest',

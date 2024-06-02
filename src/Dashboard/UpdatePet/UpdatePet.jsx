@@ -5,16 +5,20 @@ import useAxiosPublic from "../../Hooks/useAxiosPublic";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
 import { ToastContainer, toast } from "react-toastify";
 import moment from "moment";
-
+import { useParams } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
 
 const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY;
 const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
-
-const AddPet = () => {
+const UpdatePet = () => {
+    const { id } = useParams()
+    const [imagePreview, setImagePreview] = useState()
+    const [imageText, setImageText] = useState('Upload Image')
     const axiosPublic = useAxiosPublic()
     const axiosSecure = useAxiosSecure()
     const [valueCategory, setValueCategory] = useState('')
     const [startDate, setStartDate] = useState(new Date());
+
     const options = [
         { value: 'Dogs', label: 'Dogs' },
         { value: 'Cats', label: 'Cats' },
@@ -22,10 +26,22 @@ const AddPet = () => {
         { value: 'Fish', label: 'Fish' },
         { value: 'Farm Animals', label: 'Farm Animals' }
     ]
+
+    const { data: onepet = '', refetch, isLoading } = useQuery({
+        queryKey: ['onepet', id],
+        queryFn: async () => {
+            const res = await axiosSecure.get(`/onepet/${id}`);
+            return res.data;
+        }
+    })
+
+    console.log(onepet);
+
     function handleCategory(e) {
         // console.log( e.value);
         setValueCategory(e.value)
     }
+
     const {
         register,
         handleSubmit,
@@ -42,6 +58,8 @@ const AddPet = () => {
         var date = `${year}-${month}-${day}T00:00:00Z`;
         console.log(date);
         const imageFile = { image: data.image[0] }
+      console.log(imageFile.image.name);
+        setImageText(imageFile.image.name)
         const res = await axiosPublic.post(image_hosting_api, imageFile, {
             headers: {
                 'content-type': 'multipart/form-data'
@@ -67,21 +85,33 @@ const AddPet = () => {
 
             console.log(pet);
 
-            const petRes = await axiosSecure.post('/pets', pet);
+            const petRes = await axiosSecure.put(`/updatepet/${id}`, pet);
             console.log(petRes.data)
-            if (petRes.data.insertedId) {
-                toast.success('Your pet added successfully')
+            if (petRes.data.modifiedCount > 0) {
+                toast.success('Your pet updated successfully')
             }
         }
 
 
 
         console.log(data);
+        console.log(imageText);
     }
-    return (
-        <section className="mt-7 ">
+    console.log(imageText);
 
-            <h1 className="uppercase text-center text-3xl font-bold my-3">add a pet</h1>
+
+
+
+    const handleImage = e => {
+        // setImagePreview(URL.createObjectURL(image))
+        // console.log(image.name);
+        // setImageText(image.name)
+        console.log(e);
+      }
+    return (
+        isLoading ? <h1>Loading</h1> : <section className="mt-7 ">
+
+            <h1 className="uppercase text-center text-3xl font-bold my-3"> update pet</h1>
 
             <form className="" onSubmit={handleSubmit(onSubmit)}>
 
@@ -89,11 +119,13 @@ const AddPet = () => {
                     <article className="grid md:grid-cols-2 gap-4">
                         <div className="flex items-center border-[1px] border-black rounded-lg w-full p-1 ">
                             <span>Image:</span>
-                            <input className=" p-2 w-[100%] outline-none"  {...register('image', { required: true })} type="file" />
+                            {/* onChange={e => handleImage(e.target.files[0])} */}
+                            <input className=" p-2 w-[100%] outline-none"  id='image'  onChange={()=>handleImage(event)}
+                                accept='image/*'   {...register('image', { required: true })} type="file" />
                         </div>
                         <div className="flex items-center border-[1px] border-black rounded-lg p-1" >
                             <span> Name:</span>
-                            <input className=" p-2 w-[100%] outline-none " type="text" {...register('name', { required: true })} id="" />
+                            <input className=" p-2 w-[100%] outline-none " type="text" defaultValue={onepet.name} {...register('name', { required: true })} id="" />
                         </div>
 
 
@@ -102,12 +134,13 @@ const AddPet = () => {
                     <article className="grid md:grid-cols-2 gap-4">
                         <div className="flex items-center border-[1px] border-black rounded-lg p-1" >
                             <span> Age</span>
-                            <input className=" p-2 w-[100%] outline-none " type="number" {...register('age', { required: true })} placeholder="type here Pet age" id="" />
+                            <input className=" p-2 w-[100%] outline-none " type="number" defaultValue={onepet.age} {...register('age', { required: true })} placeholder="type here Pet age" id="" />
                         </div>
 
                         <div className="flex items-center gap-3 justify-between border-[1px] border-black rounded-lg p-1" >
                             <span>Pet Category:</span>
-                            <Select onChange={handleCategory} className="w-full outline-none" options={options} />
+
+                            <Select defaultValue={onepet.category} onChange={handleCategory} className="w-full outline-none" options={options} />
                         </div>
                     </article>
 
@@ -116,12 +149,12 @@ const AddPet = () => {
 
                         <div className="flex items-center border-[1px] border-black rounded-lg w-full p-1 ">
                             <span>Location:</span>
-                            <input className=" p-2 w-[100%] outline-none " type="text"{...register('location', { required: true })} placeholder="Type your Location" id="" />
+                            <input className=" p-2 w-[100%] outline-none" defaultValue={onepet.location} type="text"{...register('location', { required: true })} placeholder="Type your Location" id="" />
                         </div>
 
                         <div className="flex items-center border-[1px] border-black rounded-lg p-1" >
                             <span>Short description:</span>
-                            <textarea rows='2' cols='10' className=" p-2 w-[100%] outline-none "  {...register('shortDescription')} placeholder="Short description" id="" />
+                            <textarea rows='2' cols='10' className=" p-2 w-[100%] outline-none" defaultValue={onepet.shortDescription}  {...register('shortDescription')} placeholder="Short description" id="" />
                         </div>
 
 
@@ -131,16 +164,16 @@ const AddPet = () => {
 
 
                         <div className="flex items-center border-[1px] border-black rounded-lg p-1" >
-                            <textarea className="w-full h-full" placeholder="write here short description..."  {...register('longDescription')} id="" cols="30" rows="5"></textarea>
+                            <textarea className="w-full h-full" placeholder="write here long description..." defaultValue={onepet.longDescription}  {...register('longDescription')} id="" cols="30" rows="5"></textarea>
                         </div>
 
                     </article>
                 </section>
-                <input type="submit" value={'Add Post'} className=" px-4 py-3 bg-blue-700 text-white rounded-xl w-full mt-3" name="" id="" />
+                <input type="submit" value={'Update pet'} className=" px-4 py-3 bg-blue-700 text-white rounded-xl w-full mt-3" name="" id="" />
             </form>
             <ToastContainer></ToastContainer>
         </section>
     );
 };
 
-export default AddPet;
+export default UpdatePet;

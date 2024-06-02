@@ -5,6 +5,8 @@ import { AuthContext } from "../../AuthProvider/AuthProvider";
 import logBG from '../../assets/register.jpg'
 import 'react-toastify/dist/ReactToastify.css';
 import useAxiosPublic from "../../Hooks/useAxiosPublic";
+import { data } from "autoprefixer";
+
 
 const Register = () => {
     let { createUser, updateUser } = useContext(AuthContext)
@@ -48,9 +50,10 @@ const Register = () => {
                 let logUser = result.user
                 //let  user  = {email}
                 let userInfo={
-                    name:logUser.displayName,
-                    email:logUser.email,
-                    role:'user'
+                    name:name,
+                    email:email,
+                    role:'user',
+                    userProfile:photo
                 }
                 console.log(userInfo);
                 axiosPublic.post('/users',userInfo)
