@@ -57,6 +57,7 @@ const UpdatePet = () => {
         // Construct the desired ISO 8601 formatted string
         var date = `${year}-${month}-${day}T00:00:00Z`;
         console.log(date);
+        console.log(time);
         const imageFile = { image: data.image[0] }
       console.log(imageFile.image.name);
         setImageText(imageFile.image.name)
@@ -84,7 +85,6 @@ const UpdatePet = () => {
             }
 
             console.log(pet);
-
             const petRes = await axiosSecure.put(`/updatepet/${id}`, pet);
             console.log(petRes.data)
             if (petRes.data.modifiedCount > 0) {

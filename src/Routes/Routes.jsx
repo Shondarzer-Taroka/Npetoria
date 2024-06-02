@@ -15,6 +15,7 @@ import AllPets from "../Dashboard/AllPets/AllPets"
 import AllDonations from "../Dashboard/AllDonations/AllDonations"
 import EditDonation from "../Dashboard/EditDonation/EditDonation"
 import UpdatePet from "../Dashboard/UpdatePet/UpdatePet"
+import PetListing from "../Pages/PetListing/PetListing"
 
 
 let router=createBrowserRouter([
@@ -34,6 +35,10 @@ let router=createBrowserRouter([
             {
                 path:'/login',
                 element: <LogIn></LogIn>
+            },
+            {
+                path:'/petlist',
+                element:<PetListing></PetListing>
             }
         ]
     },
