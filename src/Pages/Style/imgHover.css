@@ -1,0 +1,23 @@
+
+#social{
+    display:none;
+}
+
+#imgcon{
+    transition: all .5s;
+}
+
+#imgcon:hover #icons{
+background-color: rgba(0, 0, 0, 0.359);
+
+/* color: aqua; */
+}
+#imgcon:hover #social{
+display: flex;
+/* color: aqua; */
+}
+
+#social{
+    z-index: 1000;
+}
+
