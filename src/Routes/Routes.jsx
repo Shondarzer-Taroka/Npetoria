@@ -16,6 +16,8 @@ import AllDonations from "../Dashboard/AllDonations/AllDonations"
 import EditDonation from "../Dashboard/EditDonation/EditDonation"
 import UpdatePet from "../Dashboard/UpdatePet/UpdatePet"
 import PetListing from "../Pages/PetListing/PetListing"
+import PetViewDetails from "../Pages/PetViewDetails/PetViewDetails"
+import DonationCampaigns from "../Pages/DonationCampaigns/DonationCampaigns"
 
 
 let router=createBrowserRouter([
@@ -33,12 +35,20 @@ let router=createBrowserRouter([
                 element:<Register></Register>
             },
             {
+                path:'/donationcamp',
+                element:<DonationCampaigns></DonationCampaigns>
+            },
+            {
                 path:'/login',
                 element: <LogIn></LogIn>
             },
             {
                 path:'/petlist',
                 element:<PetListing></PetListing>
+            },
+            {
+                path:'/viewdetails/:id',
+                element:<PetViewDetails></PetViewDetails>
             }
         ]
     },

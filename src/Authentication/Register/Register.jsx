@@ -49,6 +49,7 @@ const Register = () => {
             .then((result => {
                 let logUser = result.user
                 //let  user  = {email}
+
                 let userInfo={
                     name:name,
                     email:email,
@@ -64,6 +65,7 @@ const Register = () => {
                 .catch(err=>{
                     console.log(err);
                 })
+                
                 console.log(logUser);
                 updateUser(name, photo)
                     .then(() => {

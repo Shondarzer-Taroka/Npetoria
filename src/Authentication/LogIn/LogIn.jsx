@@ -22,6 +22,22 @@ const LogIn = () => {
     .then((result)=>{
       let loggedInUser=result.user 
       toast.success('Successfully Log In')
+    //   let userInfo={
+    //     name:loggedInUser,
+    //     email:email,
+    //     role:'user',
+    //     userProfile:loggedInUser.photoURL
+    // }
+    // console.log(userInfo);
+    // axiosPublic.post('/users',userInfo)
+    // .then(res=>{
+    //     console.log(res.data);
+    //     // navigate('/')
+    // })
+    // .catch(err=>{
+    //     console.log(err);
+    // })
+    
       let user={email}
        console.log(user);
 
