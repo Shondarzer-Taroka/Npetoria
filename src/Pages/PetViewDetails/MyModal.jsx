@@ -1,11 +1,11 @@
 
-import { Button, Checkbox, Label, Modal, TextInput } from "flowbite-react";
+import {  Modal} from "flowbite-react";
 import { useContext } from "react";
 import { AuthContext } from "../../AuthProvider/AuthProvider";
 import { useForm } from "react-hook-form"
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
 const MyModal = ({ openModal, onCloseModal, name,allinfo}) => {
-    
+    let {location,age,category}=allinfo
     const axiosSecure=useAxiosSecure()
     const { user } = useContext(AuthContext)
     const {
@@ -57,7 +57,7 @@ const MyModal = ({ openModal, onCloseModal, name,allinfo}) => {
 
                                 <div className="flex items-center border-[1px] border-black rounded-lg w-full p-1 ">
                                     <span>Address:</span>
-                                    <input className=" p-2 w-[100%] outline-none " type="text"{...register('address', { required: true })} placeholder="Type your address" id="" />
+                                    <input className=" p-2 w-[100%] outline-none " type="text"{...register('myaddress', { required: true })} placeholder="Type your address" id="" />
                                 </div>
 
 

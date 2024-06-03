@@ -3,9 +3,10 @@ import { Button, Table, TableBody, TableCell, TableHead, TableHeadCell, TableRow
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
 import { useRef, useState } from "react";
 import { Link } from "react-router-dom";
-
+import '../MyDonationCampaigns/CampaignModal'
+import CampaignModal from "../MyDonationCampaigns/CampaignModal";
 const MyDonationCampaigns = () => {
-
+    const [openModal, setOpenModal] = useState(false);
     let [pause,setPause]=useState(false)
     let holdPause=useRef()
     const axiosSecure = useAxiosSecure();
@@ -16,6 +17,12 @@ const MyDonationCampaigns = () => {
             return res.data;
         }
     })
+
+    
+    function onCloseModal() {
+        setOpenModal(false);
+        // setEmail('');
+      }
 
 
    async function handlePaused(e,id) {
@@ -69,7 +76,11 @@ const MyDonationCampaigns = () => {
                                             <div className="flex gap-2">
                                                 <Button onClick={()=>handlePaused(event,value._id)} color="failure" pill>{value.isPaused? value.isPaused:'paused'}</Button>
                                                 <Link to={`/dashboard/onedonation/${value._id}`}><Button color="blue"  >Edit</Button></Link>
-                                                <Button gradientMonochrome="info">Info</Button>
+                                                <Button onClick={() => setOpenModal(true)} gradientMonochrome="info">View donators</Button>
+                                                 <CampaignModal
+                                                 onCloseModal={onCloseModal}
+                                                 openModal={openModal}
+                                                 ></CampaignModal>
                                             </div>
                                         </TableCell>
                                     </TableRow>

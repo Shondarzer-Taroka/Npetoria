@@ -1,26 +1,41 @@
 import { Button } from "flowbite-react";
 import { Link } from "react-router-dom";
+import useAxiosSecure from "../../Hooks/useAxiosSecure";
+import { useQuery } from "@tanstack/react-query";
 
 
 const DonationCampaigns = () => {
+    const axiosSecure = useAxiosSecure();
+    const { data: donationcampaign = [], refetch } = useQuery({
+        queryKey: ['donationcampaign'],
+        queryFn: async () => {
+            const res = await axiosSecure.get('/donationcampaign');
+            return res.data;
+        }
+    })
+
+    console.log(donationcampaign);
     return (
         <section>
-
             <aside className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-
-                <div className="flex flex-col gap-2 border rounded ">
-                    <img className="w-full p-2" src={'https://pets-grooming.axiomthemes.com/wp-content/uploads/2016/07/image-30.jpg'} alt="" />
-
-
-                    <div id="content" className="mt-3 p-2">
-                        <h1 className="font-bold text-3xl">Pet Name:{'value.name'}</h1>
-                        <h3>Age:{'value.age'}</h3>
-                        <h5>Location:{'value.location'}</h5>
-
-                        <Link to={`/viewdetails/${'value._id'}`}> <Button gradientDuoTone="purpleToPink" className="mt-4"> view details </Button></Link>
-                    </div>
-                </div>
-            </aside>
+            {
+                donationcampaign.map((value, index) => {
+                    return <>
+                        
+                            <div key={index} className="flex flex-col gap-2 border rounded ">
+                                <img className="w-full p-2" src={value.image} />
+                                <div id="content" className="mt-3 p-2 flex flex-col ">
+                                    <h1 className="font-bold text-3xl">Pet Name:{value.name}</h1>
+                                    <h3> <span className="font-semibold "> Age:</span>{value?.time}</h3>
+                                    <h5>Maximum Donation:$ {value.maximumDonation}</h5>
+                                    <h5>Donated Amount:$ {value?.donatedAmount ? value?.donatedAmount :'0'}</h5>
+                                    <Link to={`/donationdetails/${value._id}`}> <Button gradientDuoTone="purpleToPink" className="mt-4"> view details </Button></Link>
+                                </div>
+                            </div>
+                      </>
+                })
+            }
+              </aside>
         </section>
     );
 };

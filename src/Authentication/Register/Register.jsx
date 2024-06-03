@@ -5,7 +5,7 @@ import { AuthContext } from "../../AuthProvider/AuthProvider";
 import logBG from '../../assets/register.jpg'
 import 'react-toastify/dist/ReactToastify.css';
 import useAxiosPublic from "../../Hooks/useAxiosPublic";
-import { data } from "autoprefixer";
+
 
 
 const Register = () => {
@@ -65,7 +65,7 @@ const Register = () => {
                 .catch(err=>{
                     console.log(err);
                 })
-                
+
                 console.log(logUser);
                 updateUser(name, photo)
                     .then(() => {

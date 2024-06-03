@@ -7,6 +7,7 @@ import MyModal from "./MyModal";
 
 const PetViewDetails = () => {
     const [openModal, setOpenModal] = useState(false);
+
     let {id}=useParams()
     const axiosSecure=useAxiosSecure()
     console.log(id);
@@ -49,7 +50,7 @@ const PetViewDetails = () => {
                 onCloseModal={onCloseModal}
                  openModal={openModal}
                  name={viewdetails.name}
-                 allinfo={viewdetails}
+                 allinfo={{age:viewdetails.age,location:viewdetails.location}}
                  ></MyModal>
                 </div>
             </aside>
