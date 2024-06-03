@@ -1,6 +1,19 @@
 import {  Modal} from "flowbite-react";
+import useAxiosSecure from "../../Hooks/useAxiosSecure";
 
 const CampaignModal = ({openModal,onCloseModal}) => {
+
+    const axiosSecure = useAxiosSecure();
+    const { data: donators = [], refetch } = useQuery({
+        queryKey: ['donators'],
+        queryFn: async () => {
+            const res = await axiosSecure.get('/donators');
+            return res.data;
+        }
+    })
+
+    console.log(donators);
+
     return (
         <div>
              <Modal show={openModal} size="md" onClose={onCloseModal} popup>
