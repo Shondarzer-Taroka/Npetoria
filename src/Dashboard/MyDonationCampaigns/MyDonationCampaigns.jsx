@@ -5,10 +5,13 @@ import { useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import '../MyDonationCampaigns/CampaignModal'
 import CampaignModal from "../MyDonationCampaigns/CampaignModal";
+import { Progress } from "flowbite-react";
+
 const MyDonationCampaigns = () => {
     const [openModal, setOpenModal] = useState(false);
-    let [pause,setPause]=useState(false)
-    let holdPause=useRef()
+    const [detailsid, setdetailsid] = useState('')
+    let [pause, setPause] = useState(false)
+    let holdPause = useRef()
     const axiosSecure = useAxiosSecure();
     const { data: campaigns = [], refetch } = useQuery({
         queryKey: ['campaigns'],
@@ -18,28 +21,43 @@ const MyDonationCampaigns = () => {
         }
     })
 
-    
+
+
+    // const { data: donators = [], refetch:againfetch } = useQuery({
+    //     queryKey: ['donators'],
+    //     queryFn: async () => {
+    //         const res = await axiosSecure.get(`/donators/${donationid}`);
+    //         return res.data;
+    //     }
+    // })
+
+    // console.log(donators);
+
     function onCloseModal() {
+
         setOpenModal(false);
+        // refetch()
         // setEmail('');
-      }
+    }
+
+    console.log(detailsid);
 
 
-   async function handlePaused(e,id) {
+    async function handlePaused(e, id) {
         // console.log(e.target.innerText==='paused');
-         console.log(id);
+        console.log(id);
         // e.target.innerText==='paused' ? e.target.innerText='unpaused' :'paused'
-        if (e.target.innerText==='paused') {
-            e.target.innerText='unpaused'
+        if (e.target.innerText === 'paused') {
+            e.target.innerText = 'unpaused'
 
-            const res = await axiosSecure.put(`/campaignspause/${id}`,{isPaused:'unpaused'});
+            const res = await axiosSecure.put(`/campaignspause/${id}`, { isPaused: 'unpaused' });
             console.log(res.data);
             // return res.data;
         }
-        else if ( e.target.innerText==='unpaused') {
-            e.target.innerText='paused'
+        else if (e.target.innerText === 'unpaused') {
+            e.target.innerText = 'paused'
 
-            const res = await axiosSecure.put(`/campaignspause/${id}`,{isPaused:'paused'});
+            const res = await axiosSecure.put(`/campaignspause/${id}`, { isPaused: 'paused' });
             console.log(res.data);
             // return res.data;
         }
@@ -54,9 +72,9 @@ const MyDonationCampaigns = () => {
                         <TableHeadCell>Pet name</TableHeadCell>
                         <TableHeadCell>Maximaum donation amount</TableHeadCell>
                         <TableHeadCell>donation progress bar</TableHeadCell>
-                       
+
                         <TableHeadCell>
-                          
+
                             action
                         </TableHeadCell>
                     </TableHead>
@@ -70,17 +88,28 @@ const MyDonationCampaigns = () => {
                                             {value.name}
                                         </TableCell>
                                         <TableCell>{value.maximumDonation}</TableCell>
-                                        <TableCell>Laptop</TableCell>
-                                      
+                                        <TableCell>
+                                            <Progress
+                                                progress={45}
+                                                progressLabelPosition="inside"
+                                                textLabel="Flowbite"
+                                                textLabelPosition="outside"
+                                                size="lg"
+                                                labelProgress
+                                                labelText
+                                            />
+                                        </TableCell>
+
                                         <TableCell>
                                             <div className="flex gap-2">
-                                                <Button onClick={()=>handlePaused(event,value._id)} color="failure" pill>{value.isPaused? value.isPaused:'paused'}</Button>
+                                                <Button onClick={() => handlePaused(event, value._id)} color="failure" pill>{value.isPaused ? value.isPaused : 'paused'}</Button>
                                                 <Link to={`/dashboard/onedonation/${value._id}`}><Button color="blue"  >Edit</Button></Link>
-                                                <Button onClick={() => setOpenModal(true)} gradientMonochrome="info">View donators</Button>
-                                                 <CampaignModal
-                                                 onCloseModal={onCloseModal}
-                                                 openModal={openModal}
-                                                 ></CampaignModal>
+                                                <Button onClick={() => { setOpenModal(true), setdetailsid(value._id) }} gradientMonochrome="info">View donators</Button>
+                                                <CampaignModal
+                                                    onCloseModal={onCloseModal}
+                                                    openModal={openModal}
+                                                    donationid={detailsid}
+                                                ></CampaignModal>
                                             </div>
                                         </TableCell>
                                     </TableRow>

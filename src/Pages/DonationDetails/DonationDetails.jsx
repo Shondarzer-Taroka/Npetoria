@@ -56,6 +56,8 @@ const DonationDetails = () => {
                     onCloseModal={onCloseModal}
                     openModal={openModal}
                     askedforId={donationdetails._id}
+                    donateImg={donationdetails.image}
+                    donateName={donationdetails.name}
                  ></DonationModal>
                 </div>
             </aside>
