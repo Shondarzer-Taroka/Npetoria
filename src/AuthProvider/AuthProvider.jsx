@@ -1,12 +1,14 @@
 import { createContext, useEffect, useState } from "react";
 import { GoogleAuthProvider, TwitterAuthProvider, createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile } from "firebase/auth";
 import auth from "../Firebase/firebase.config";
+import useAxiosPublic from "../Hooks/useAxiosPublic";
 
 
 const googleProvider = new GoogleAuthProvider();
 const twitterProvider = new TwitterAuthProvider();
 export const AuthContext=createContext(null)
 const AuthProvider = ({children}) => {
+  const axiosPublic=useAxiosPublic()
     let [user,setUser]=useState('')
     //  let [loading,setLoading]=useState(false)
      let [spinner,setSpinner]=useState(true)
@@ -48,7 +50,24 @@ const AuthProvider = ({children}) => {
       let unsubscribe= onAuthStateChanged(auth,(user)=>{
         console.log(user);
          setUser(user)
-         setSpinner(false)
+         if (user) {
+          // get token and store client
+          const userInfo = { email: user.email };
+          axiosPublic.post('/jwt', userInfo)
+              .then(res => {
+                  if (res.data.token) {
+                      localStorage.setItem('petoria-access', res.data.token);
+                      setSpinner(false);
+                  }
+              })
+      }
+      else {
+          // TODO: remove token (if token stored in the client side: Local storage, caching, in memory)
+          localStorage.removeItem('petoria-access');
+          setSpinner(false);
+      }
+
+        //  setSpinner(false)
       })
 
       return ()=>{

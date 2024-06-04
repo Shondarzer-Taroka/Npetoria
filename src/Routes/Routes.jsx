@@ -19,6 +19,7 @@ import PetListing from "../Pages/PetListing/PetListing"
 import PetViewDetails from "../Pages/PetViewDetails/PetViewDetails"
 import DonationCampaigns from "../Pages/DonationCampaigns/DonationCampaigns"
 import DonationDetails from "../Pages/DonationDetails/DonationDetails"
+import PrivateRoute from "../PrivateRoute/PrivateRoute"
 
 
 let router=createBrowserRouter([
@@ -75,35 +76,35 @@ let router=createBrowserRouter([
             },
             {
                 path:'addpet',
-                element:<AddPet></AddPet>
+                element:<PrivateRoute><AddPet></AddPet></PrivateRoute>
             },
             {
                 path:'myaddedpet',
-                element:<MyAddedPets></MyAddedPets>
+                element:<PrivateRoute><MyAddedPets></MyAddedPets></PrivateRoute>
             },
             {
                 path:'updatepet/:id',
-                element: <UpdatePet></UpdatePet>
+                element: <PrivateRoute><UpdatePet></UpdatePet></PrivateRoute>
             },
             {
                 path:'adoptionrequest',
-                element:<AdoptionRequest></AdoptionRequest>
+                element:<PrivateRoute><AdoptionRequest></AdoptionRequest></PrivateRoute>
             },
             {
                 path:'createdonationcampaign',
-                element:<CreateDonationCampaign></CreateDonationCampaign>
+                element:<PrivateRoute><CreateDonationCampaign></CreateDonationCampaign></PrivateRoute>
             },
             {
                 path:'mydonationcampaigns',
-                element:<MyDonationCampaigns></MyDonationCampaigns>
+                element:<PrivateRoute><MyDonationCampaigns></MyDonationCampaigns></PrivateRoute>
             },
             {
                 path:'mydonations',
-                element:<MyDonations></MyDonations>
+                element:<PrivateRoute><MyDonations></MyDonations></PrivateRoute>
             },
             {
                 path:'onedonation/:id',
-                element:<EditDonation></EditDonation>
+                element:<PrivateRoute><EditDonation></EditDonation></PrivateRoute>
             }
         ]
     }

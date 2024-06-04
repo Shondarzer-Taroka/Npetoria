@@ -84,10 +84,10 @@ const LogIn = () => {
             console.log(err);
         })
 
-        // toast.success('Successfully log In')
-        // setTimeout(()=>{
-        //   navigate(loc?.state ? loc.state : '/')
-        //  },1000)
+        toast.success('Successfully log In')
+        setTimeout(()=>{
+          navigate(loc?.state ? loc.state : '/')
+         },1000)
         console.log(user);
       })
       .catch(er=>{
@@ -121,7 +121,7 @@ const LogIn = () => {
           setTimeout(()=>{
             navigate(loc?.state ? loc.state : '/')
            },1000)
-          console.log(user);
+          // console.log(user);
         })
         .catch(er=>{
           console.log(er);
