@@ -58,6 +58,7 @@ const DonationDetails = () => {
                     askedforId={donationdetails._id}
                     donateImg={donationdetails.image}
                     donateName={donationdetails.name}
+                    petdata={donationdetails}
                  ></DonationModal>
                 </div>
             </aside>

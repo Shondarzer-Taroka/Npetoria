@@ -31,7 +31,7 @@ const MyDonationCampaigns = () => {
     //     }
     // })
 
-    // console.log(donators);
+    console.log(campaigns);
 
     function onCloseModal() {
 
@@ -90,7 +90,7 @@ const MyDonationCampaigns = () => {
                                         <TableCell>{value.maximumDonation}</TableCell>
                                         <TableCell>
                                             <Progress
-                                                progress={45}
+                                                progress={ value?.donatedAmount ? ((((Number(value.maximumDonation)- (value.donatedAmount/100) ))/(Number(value.maximumDonation)))*100).toFixed(2):0}
                                                 progressLabelPosition="inside"
                                                 textLabel="Flowbite"
                                                 textLabelPosition="outside"

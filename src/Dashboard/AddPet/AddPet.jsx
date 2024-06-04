@@ -1,16 +1,18 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import Select from 'react-select'
 import useAxiosPublic from "../../Hooks/useAxiosPublic";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
 import { ToastContainer, toast } from "react-toastify";
 import moment from "moment";
+import { AuthContext } from "../../AuthProvider/AuthProvider";
 
 
 const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY;
 const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
 
 const AddPet = () => {
+    const {user}=useContext(AuthContext)
     const axiosPublic = useAxiosPublic()
     const axiosSecure = useAxiosSecure()
     const [valueCategory, setValueCategory] = useState('')
@@ -55,6 +57,7 @@ const AddPet = () => {
 
                 image: res.data.data.display_url,
                 date: date,
+                email:user?.email,
                 time: time,
                 adopted: false,
                 name: data.name,

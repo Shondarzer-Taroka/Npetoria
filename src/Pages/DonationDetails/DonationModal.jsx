@@ -5,9 +5,10 @@ import useAxiosSecure from "../../Hooks/useAxiosSecure";
 import { useForm } from "react-hook-form";
 import Payment from "../../Payment/Payment";
 
-const DonationModal = ({ openModal, onCloseModal,askedforId,donateImg,donateName}) => {
+const DonationModal = ({ openModal, onCloseModal,askedforId,donateImg,donateName,petdata}) => {
     let amounget=useRef()
-    console.log(donateImg,donateName);
+    // console.log(donateImg,donateName);
+    console.log(petdata);
     const axiosSecure=useAxiosSecure()
     const [donationAmount,setdonationAmount]=useState('')
     let holdAmount=0
@@ -67,7 +68,7 @@ const DonationModal = ({ openModal, onCloseModal,askedforId,donateImg,donateName
                          
                          <div>
                             {/* payment related */}
-                            <Payment donationAmount={donationAmount} askedforId={askedforId} donateImg={donateImg} donateName={donateName}>    
+                            <Payment donationAmount={donationAmount} askedforId={askedforId} donateImg={donateImg} donateName={donateName} petdata={petdata}>    
                             </Payment>
                          </div>
 

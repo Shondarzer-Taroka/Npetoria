@@ -4,7 +4,7 @@ import useAxiosSecure from "../Hooks/useAxiosSecure";
 import { AuthContext } from "../AuthProvider/AuthProvider";
 
 
-const CheckoutForm = ({ donationAmount,askedforId,donateImg,donateName}) => {
+const CheckoutForm = ({ donationAmount,askedforId,donateImg,donateName,petdata}) => {
     console.log(askedforId);
     const { user } = useContext(AuthContext)
     const [error, setError] = useState('')
@@ -34,7 +34,8 @@ const CheckoutForm = ({ donationAmount,askedforId,donateImg,donateName}) => {
           transactionId,
           amount:amount,
           donateImg,
-          donateName
+          donateName,
+          petdata
         }
         console.log(donatorinfo);
 
