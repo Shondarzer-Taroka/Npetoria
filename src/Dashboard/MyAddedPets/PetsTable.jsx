@@ -9,6 +9,7 @@ import { AuthContext } from '../../AuthProvider/AuthProvider';
 import { useQuery } from '@tanstack/react-query';
 import useAxiosSecure from '../../Hooks/useAxiosSecure';
 import Swal from 'sweetalert2';
+import { Link } from 'react-router-dom';
 
 const PetsTable = () => {
   const { user } = useContext(AuthContext);
@@ -54,7 +55,7 @@ const PetsTable = () => {
       accessorKey: 'action',
             cell: (info) => (
               <div>
-                <button className='px-4 py-3 rounded-lg bg-green-400'  onClick={() => handleUpdate(info.row.original)}>Update</button>
+                <Link to={`/dashboard/updatepet/${info.row.original._id}`}><button className='px-4 py-3 rounded-lg bg-green-400'>Update</button></Link>
                 <button className='px-4 py-3 rounded-lg bg-red-500'  onClick={() => handleDelete(info.row.original)}>Delete</button>
                 <button className='px-4 py-3 rounded-lg bg-gray-500 text-white'  onClick={() => handleAdopt(info.row.original)}>Adopted</button>
               </div>
@@ -63,10 +64,8 @@ const PetsTable = () => {
     }
   ], []);
 
-  function handleUpdate(e) {
-    console.log(e._id);
 
-  }
+
   function handleDelete(e) {
     console.log(e._id);
     Swal.mixin({
@@ -87,9 +86,10 @@ const PetsTable = () => {
     }).then((result) => {
       if (result.isConfirmed) {
         
-        axiosSecure.delete(`/mypetdelete/${e.id}`)
+        axiosSecure.delete(`/mypetdelete/${e._id}`)
         .then(res=>{
           if (res.data.deletedCount > 0) {
+            refetch()
             Swal.fire({
               title: "Deleted!",
               text: "Your file has been deleted.",
@@ -110,8 +110,26 @@ const PetsTable = () => {
       }
     });
   }
-  function handleAdopt(e) {
+
+  async function handleAdopt(e) {
     console.log(e);
+    let status=e.adopted
+    if (status===false) {
+      event.target.innerText='Adopted'
+      // console.log('yes');
+      const res = await axiosSecure.patch(`/petstatusbyuser/${e._id}`,{adopted:true});
+      // console.log(res.data);
+      if (res.data.modifiedCount) {
+          refetch()
+      }
+  }  
+  else if (status===true) {
+      const res = await axiosSecure.patch(`/petstatusbyuser/${e._id}`,{adopted:false});
+      if (res.data.modifiedCount) {
+          refetch()
+      }
+      console.log(res.data);
+  }
   }
 
   const [sorting, setSorting] = useState([]);
