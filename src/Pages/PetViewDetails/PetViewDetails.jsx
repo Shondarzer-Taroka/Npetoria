@@ -40,7 +40,7 @@ const PetViewDetails = () => {
                  <h5 className="font-semibold text-2xl"> Category:  {viewdetails.category}</h5>
                  <h6 className="font-semibold">Age:{viewdetails.age}</h6>
                  <h5 className="font-semibold">Location:{viewdetails.location}</h5>
-                 {/* <h5 className="font-semibold">Location:{viewdetails.date}</h5> */}
+               
                  <h5 className=""> <span className="font-semibold">Date:</span> {new Date(viewdetails.date).toISOString().split('T')[0].split('-').reverse().join('/')} </h5>
                  <h5 className=""> <span className="font-semibold">Time:</span> {viewdetails.time} </h5>
                  <p> <span className="font-semibold">Short Description:</span> {viewdetails.shortDescription}</p>
@@ -50,7 +50,7 @@ const PetViewDetails = () => {
                 onCloseModal={onCloseModal}
                  openModal={openModal}
                  name={viewdetails.name}
-                 allinfo={{age:viewdetails.age,location:viewdetails.location}}
+                 allinfo={{age:viewdetails.age,location:viewdetails.location,adoptorEmail:viewdetails.email,shortDescription:viewdetails.shortDescription,longDescription:viewdetails.longDescription,petName:viewdetails.name}}
                  ></MyModal>
                 </div>
             </aside>

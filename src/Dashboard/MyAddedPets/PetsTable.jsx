@@ -49,6 +49,7 @@ const PetsTable = () => {
       header: 'Adoption status',
       accessorKey: 'adopted',
       cell: (info) => (info.row.original.adopted === false ? 'Not Adopted' : 'Adopted'),
+      
     },
     {
       header: 'Action',
@@ -57,7 +58,7 @@ const PetsTable = () => {
               <div>
                 <Link to={`/dashboard/updatepet/${info.row.original._id}`}><button className='px-4 py-3 rounded-lg bg-green-400'>Update</button></Link>
                 <button className='px-4 py-3 rounded-lg bg-red-500'  onClick={() => handleDelete(info.row.original)}>Delete</button>
-                <button className='px-4 py-3 rounded-lg bg-gray-500 text-white'  onClick={() => handleAdopt(info.row.original)}>Adopted</button>
+                <button className='px-4 py-3 rounded-lg bg-gray-500 text-white'  onClick={() => handleAdopt(info.row.original)}>{info.row.original.adopted?'Adopted':'Not Adopted'}</button>
               </div>
             ),
       enableSorting: false,

@@ -90,7 +90,8 @@ const MyDonationCampaigns = () => {
                                         <TableCell>{value.maximumDonation}</TableCell>
                                         <TableCell>
                                             <Progress
-                                                progress={ value?.donatedAmount ? ((((Number(value.maximumDonation)- (value.donatedAmount/100) ))/(Number(value.maximumDonation)))*100).toFixed(2):0}
+                                                progress={ value?.donatedAmount ? ((value.donatedAmount/100)/ Number(value.maximumDonation)*100).toFixed(2) :0 }
+                                                // progress={ value?.donatedAmount ? ((((Number(value.maximumDonation)- (value.donatedAmount/100) ))/(Number(value.maximumDonation)))*100).toFixed(2):0}
                                                 progressLabelPosition="inside"
                                                 textLabel="Flowbite"
                                                 textLabelPosition="outside"

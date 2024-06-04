@@ -8,7 +8,7 @@ import { BsTwitter } from 'react-icons/bs';
 import useAxiosPublic from "../../Hooks/useAxiosPublic";
 const LogIn = () => {
 
-    let {signInUser,signInbyGoogle,setSpinner}=useContext(AuthContext)
+    let {signInUser,signInbyGoogle,setSpinner,signInbyTwitter}=useContext(AuthContext)
     let axiosPublic=useAxiosPublic()
     let navigate= useNavigate()
     let loc=useLocation()
@@ -97,6 +97,38 @@ const LogIn = () => {
       })
     }
 
+    function handleSignInBytwitter() {
+        signInbyTwitter()
+        .then((result)=>{
+          let logUser=result.user 
+
+          let userInfo={
+            name:logUser.displayName,
+            email:logUser.email,
+            role:'user'
+        }
+        console.log(userInfo);
+        axiosPublic.post('/users',userInfo)
+        .then(res=>{
+            console.log(res.data);
+            // navigate('/')
+        })
+        .catch(err=>{
+            console.log(err);
+        })
+
+          toast.success('Successfully log In')
+          setTimeout(()=>{
+            navigate(loc?.state ? loc.state : '/')
+           },1000)
+          console.log(user);
+        })
+        .catch(er=>{
+          console.log(er);
+          toast.error(er.message)
+        })
+      }
+
     return (
         <div>
             
@@ -133,7 +165,7 @@ const LogIn = () => {
                             <div className="flex justify-center">
                                 <div className="flex gap-2">
                                     <button className="px-3 py-2 rounded-lg bg-blue-400 flex items-center gap-2 font-semibold " onClick={handleLogInWithGoogle}> Google <FaGoogle></FaGoogle> </button>
-                                    <button className="px-3 py-2 rounded-lg bg-blue-400 flex items-center gap-2 font-semibold "> Twitter <BsTwitter></BsTwitter></button>
+                                    <button className="px-3 py-2 rounded-lg bg-blue-400 flex items-center gap-2 font-semibold " onClick={handleSignInBytwitter}> Twitter <BsTwitter></BsTwitter></button>
                                 </div>
                             </div>
                             
