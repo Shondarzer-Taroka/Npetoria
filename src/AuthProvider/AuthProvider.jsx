@@ -50,6 +50,7 @@ const AuthProvider = ({children}) => {
       let unsubscribe= onAuthStateChanged(auth,(user)=>{
         console.log(user);
          setUser(user)
+
          if (user) {
           // get token and store client
           const userInfo = { email: user.email };
@@ -67,7 +68,7 @@ const AuthProvider = ({children}) => {
           setSpinner(false);
       }
 
-        //  setSpinner(false)
+         setSpinner(false)
       })
 
       return ()=>{

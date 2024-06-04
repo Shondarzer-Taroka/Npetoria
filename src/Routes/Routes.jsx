@@ -20,6 +20,9 @@ import PetViewDetails from "../Pages/PetViewDetails/PetViewDetails"
 import DonationCampaigns from "../Pages/DonationCampaigns/DonationCampaigns"
 import DonationDetails from "../Pages/DonationDetails/DonationDetails"
 import PrivateRoute from "../PrivateRoute/PrivateRoute"
+import AdminDashboard from "../Dashboard/AdminDashboard/AdminDashboard"
+import UserDashboard from "../Dashboard/UserDashboard/UserDashboard"
+import AdminRoute from "../Dashboard/AdminRoute/AdminRoute"
 
 
 let router=createBrowserRouter([
@@ -63,12 +66,20 @@ let router=createBrowserRouter([
         element:<Dashboard></Dashboard>,
         children:[
             {
+                path:"adminDashboard",
+                element:<AdminRoute><AdminDashboard></AdminDashboard></AdminRoute>
+            },
+            {
+                path:'userDashboard',
+                element:<UserDashboard></UserDashboard>
+            },
+            {
                 path:'users',
                 element:<Users></Users>
             },
             {
                 path:'allpets',
-                element:<AllPets></AllPets>
+                element:<AdminRoute><AllPets></AllPets></AdminRoute>
             },
             {
                 path:'alldonations',

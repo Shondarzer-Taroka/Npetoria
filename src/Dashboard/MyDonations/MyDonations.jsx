@@ -3,6 +3,7 @@ import useAxiosSecure from "../../Hooks/useAxiosSecure";
 import { useContext } from "react";
 import { AuthContext } from "../../AuthProvider/AuthProvider";
 import { Button, Table, TableBody, TableCell, TableHead, TableHeadCell, TableRow } from "flowbite-react";
+import { ToastContainer, toast } from "react-toastify";
 
 const MyDonations = () => {
     const axiosSecure = useAxiosSecure();
@@ -17,6 +18,25 @@ const MyDonations = () => {
     })
 
     console.log(mydonation);
+
+    // function handleRefund(transactionId) {
+    //     console.log(transactionId);
+    // }
+
+
+    const handleRefund = async (transactionId) => {
+        try {
+            const response = await axiosSecure.post('/refund-payment', { paymentIntentId: transactionId });
+            console.log('Refund successful:', response.data);
+            toast.success(response.data.status)
+            // Update UI or notify user about successful refund
+        } catch (error) {
+            console.error('Refund failed:', error);
+            toast.error(error.response.data.error)
+            // Handle error and notify user
+        }
+    };
+    
     return (
         <div>
             <div className="overflow-x-auto">
@@ -41,7 +61,7 @@ const MyDonations = () => {
                                     <TableCell>{value.donateName}</TableCell>
                                     <TableCell>{value.amount/100}</TableCell>
                                     <TableCell>
-                                        <Button >Refund</Button>
+                                        <Button onClick={()=>handleRefund(value.transactionId)}>Refund</Button>
                                     </TableCell>
                                 </TableRow>
                             </>
@@ -50,6 +70,7 @@ const MyDonations = () => {
                     </TableBody>
                 </Table>
             </div>
+            <ToastContainer></ToastContainer>
         </div>
     );
 };

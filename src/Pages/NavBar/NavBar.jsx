@@ -14,13 +14,17 @@ import {
 import { useContext } from "react";
 import { AuthContext } from "../../AuthProvider/AuthProvider";
 import { Link, NavLink } from "react-router-dom";
+import useAdmin from "../../Hooks/useAdmin";
 
 const MyNavBar = () => {
 
     let { user, logout, spinner } = useContext(AuthContext)
+    let [isAdmin]=useAdmin()
+    // console.log(isAdmin);
     function handleLogOut() {
         logout()
             .then(res => {
+                localStorage.removeItem('petoria-access');
                 console.log(res);
             })
             .catch(err => {
@@ -58,7 +62,9 @@ const MyNavBar = () => {
                                     <span className="block text-sm">{user?.displayName}</span>
                                     <span className="block truncate text-sm font-medium">{user?.email}</span>
                                 </DropdownHeader>
-                                <DropdownItem><NavLink to={'/dashboard'}>Dashboard</NavLink></DropdownItem>
+
+                                { user && isAdmin && <DropdownItem><NavLink to={'/dashboard/adminDashboard'}>Dashboard</NavLink></DropdownItem>}
+                                { user && !isAdmin && <DropdownItem><NavLink to={'/dashboard/userDashboard'}>Dashboard</NavLink></DropdownItem>}
                                 {/* <DropdownItem>Settings</DropdownItem> */}
                                 {/* <DropdownItem>Earnings</DropdownItem> */}
                                 <DropdownDivider />

@@ -1,15 +1,17 @@
 import { NavLink } from "react-router-dom";
+import useAdmin from "../Hooks/useAdmin";
 
 
 const SideBar = () => {
-    let isTrue=true
+    const [isAdmin] = useAdmin();
 
     return (
         <section>
             <aside id="sideBar-1" className="flex flex-col gap-4">
-                { isTrue &&
+                {isAdmin &&
                     <div>
                         <div className="flex flex-col gap-4">
+                            <NavLink className={'border rounded px-2 py-3'} to={'/dashboard/adminDashboard'}>Admin Dshboard</NavLink>
                             <NavLink className={'border rounded px-2 py-3'} to={'/dashboard/users'}>Users</NavLink>
                             <NavLink className={'border rounded px-2 py-3'} to={'/dashboard/allpets'}>All Pets</NavLink>
                             <NavLink className={'border rounded px-2 py-3'} to={'/dashboard/alldonations'}>All Donations</NavLink>
@@ -21,6 +23,8 @@ const SideBar = () => {
                         </div>
                     </div>
                 }
+
+                <NavLink className={'border rounded px-2 py-3'} to={'/dashboard/userDashboard'}>User Dashboard</NavLink>
                 <NavLink className={'border rounded px-2 py-3'} to={'/dashboard/addpet'}>  Add a pet </NavLink>
                 <NavLink className={'border rounded px-2 py-3'} to={'/dashboard/myaddedpet'}>  My added pets </NavLink>
                 <NavLink className={'border rounded px-2 py-3'} to={'/dashboard/adoptionrequest'}>  Adoption Request</NavLink>

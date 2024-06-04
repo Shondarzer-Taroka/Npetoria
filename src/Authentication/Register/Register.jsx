@@ -12,7 +12,7 @@ const Register = () => {
     let { createUser, updateUser } = useContext(AuthContext)
     let navigate = useNavigate()
     let loc = useLocation()
-    let axiosPublic=useAxiosPublic()
+    let axiosPublic = useAxiosPublic()
     // console.log(loc);
     function onsubmit(e) {
         e.preventDefault()
@@ -21,8 +21,8 @@ const Register = () => {
         let name = e.target.name.value
         let photo = e.target.image.value
         // console.log(email, password, name, photo);
-        
-      
+
+
 
         if (password.length < 6) {
             // toast.error('You should take at least 6 characters')
@@ -49,22 +49,34 @@ const Register = () => {
             .then((result => {
                 let logUser = result.user
                 //let  user  = {email}
+                let loggedInUser = result.user
+                if (loggedInUser) {
+                    // get token and store client
+                    const userInfo = { email: loggedInUser.email };
+                    axiosPublic.post('/jwt', userInfo)
+                        .then(res => {
+                            if (res.data.token) {
+                                localStorage.setItem('petoria-access', res.data.token);
 
-                let userInfo={
-                    name:name,
-                    email:email,
-                    role:'user',
-                    userProfile:photo
+                            }
+                        })
+                }
+
+                let userInfo = {
+                    name: name,
+                    email: email,
+                    role: 'user',
+                    userProfile: photo
                 }
                 console.log(userInfo);
-                axiosPublic.post('/users',userInfo)
-                .then(res=>{
-                    console.log(res.data);
-                    // navigate('/')
-                })
-                .catch(err=>{
-                    console.log(err);
-                })
+                axiosPublic.post('/users', userInfo)
+                    .then(res => {
+                        console.log(res.data);
+                        // navigate('/')
+                    })
+                    .catch(err => {
+                        console.log(err);
+                    })
 
                 console.log(logUser);
                 updateUser(name, photo)
@@ -74,13 +86,12 @@ const Register = () => {
                     .catch(er => {
                         console.log(er);
                     })
-                // e.target.reset()
+
                 toast.success('Successfully registered')
-                // location.reload()
-                // setTimeout(() => {
-                //     navigate(loc?.state ? loc.state : '/')
-                //     location.reload()
-                // }, 1000)
+                setTimeout(() => {
+                    navigate(loc?.state ? loc.state : '/')
+                    location.reload()
+                }, 1000)
             }))
             .catch(er => {
                 er.message == 'Firebase: Error (auth/email-already-in-use).' ? toast.error('Email already in used') : ''

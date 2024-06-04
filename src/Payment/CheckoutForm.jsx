@@ -4,7 +4,7 @@ import useAxiosSecure from "../Hooks/useAxiosSecure";
 import { AuthContext } from "../AuthProvider/AuthProvider";
 
 
-const CheckoutForm = ({ donationAmount,askedforId,donateImg,donateName,petdata}) => {
+const CheckoutForm = ({ donationAmount, askedforId, donateImg, donateName, petdata }) => {
     console.log(askedforId);
     const { user } = useContext(AuthContext)
     const [error, setError] = useState('')
@@ -14,38 +14,38 @@ const CheckoutForm = ({ donationAmount,askedforId,donateImg,donateName,petdata})
     const [transactionId, setTransactionId] = useState('');
     const axiosSecure = useAxiosSecure();
     let totalPrice = parseInt(donationAmount)
-    console.log('total', {totalPrice});
+    console.log('total', { totalPrice });
     useEffect(() => {
         if (totalPrice > 0) {
-            axiosSecure.post('/create-payment-intent', { price: totalPrice,askedforId:askedforId})
+            axiosSecure.post('/create-payment-intent', { price: totalPrice, askedforId: askedforId })
                 .then(res => {
                     // console.log(res.data.clientSecret);
                     setClientSecret(res.data.clientSecret);
                 })
         }
 
-    }, [axiosSecure,totalPrice,askedforId])
+    }, [axiosSecure, totalPrice, askedforId])
 
-    function clicking(amount) {
-        let donatorinfo={
-          askedforId,
-          email:user?.email,
-          userName:user?.displayName,
-          transactionId,
-          amount:amount,
-          donateImg,
-          donateName,
-          petdata
+    function clicking(amount,transactionId) {
+        let donatorinfo = {
+            askedforId,
+            email: user?.email,
+            userName: user?.displayName,
+            transactionId,
+            amount: amount,
+            donateImg,
+            donateName,
+            petdata
         }
         console.log(donatorinfo);
 
-      axiosSecure.post('/donator',donatorinfo)
-      .then(res=>{
-        console.log(res.data);
-      })
-      .catch(err=>{
-        console.log(err);
-      })
+        axiosSecure.post('/donator', donatorinfo)
+            .then(res => {
+                console.log(res.data);
+            })
+            .catch(err => {
+                console.log(err);
+            })
     }
 
     // function handlepay(event) {
@@ -104,7 +104,7 @@ const CheckoutForm = ({ donationAmount,askedforId,donateImg,donateName,petdata})
             console.log('payment intent', paymentIntent)
             if (paymentIntent.status === 'succeeded') {
                 console.log('transaction id', paymentIntent.id);
-                clicking(paymentIntent.amount)
+                clicking(paymentIntent.amount,paymentIntent.id)
                 setTransactionId(paymentIntent.id);
             }
         }
@@ -129,11 +129,11 @@ const CheckoutForm = ({ donationAmount,askedforId,donateImg,donateName,petdata})
                     }}
                 />
                 {/* <form onSubmit={()=>handlepay(event)}> */}
-                    <button className='px-4 py-2 bg-blue-600 rounded-md text-white' type="submit" disabled={!stripe || !clientSecret}>
-                        Pay
-                    </button>
+                <button className='px-4 py-2 bg-blue-600 rounded-md text-white' type="submit" disabled={!stripe || !clientSecret}>
+                    Pay
+                </button>
                 {/* </form> */}
-{/* disabled={!stripe || !clientSecret} */}
+                {/* disabled={!stripe || !clientSecret} */}
                 <p className='text-red-600'>{error}</p>
                 {transactionId && <p className="text-green-600"> Your transaction id: {transactionId}</p>}
             </form>
