@@ -2,9 +2,9 @@
 
 const CallUs = () => {
     return (
-        <section className="mt-7">
+        <section className="">
             
-            <h1 className="uppercase text-center font-bold text-4xl"> call us </h1>
+            <h1 className="uppercase text-center font-bold text-4xl my-7"> call us </h1>
             <aside className="flex flex-col md:flex-row justify-between items-center gap-3">
              <div id="content" className="lg:w-[50%]">
             <p> 

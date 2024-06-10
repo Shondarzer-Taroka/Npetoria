@@ -28,6 +28,8 @@ const PetViewDetails = () => {
       }
     return (
       isLoading ? <h1>Loading</h1> : <section>
+
+       
             
             <aside>
                 <div className="w-full h-[600px] ">

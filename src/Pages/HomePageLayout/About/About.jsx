@@ -2,8 +2,8 @@
 
 const About = () => {
     return (
-        <section className="mt-7">
-            <h1 className="font-bold text-4xl uppercase text-center my-3"> About us</h1>
+        <section className="">
+            <h1 className="font-bold text-4xl uppercase text-center my-7"> About us</h1>
             
             <aside  className="flex flex-col md:flex-row md:justify-between items-center ">
                <div className="md:w-[50%]">

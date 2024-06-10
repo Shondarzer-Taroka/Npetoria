@@ -23,12 +23,14 @@ import PrivateRoute from "../PrivateRoute/PrivateRoute"
 import AdminDashboard from "../Dashboard/AdminDashboard/AdminDashboard"
 import UserDashboard from "../Dashboard/UserDashboard/UserDashboard"
 import AdminRoute from "../Dashboard/AdminRoute/AdminRoute"
+import Error from "../Pages/Error/Error"
 
 
 let router=createBrowserRouter([
     {
         path:'/',
         element: <Root></Root>,
+        errorElement:<Error></Error>,
         children:[
             {
                 path:'/',
@@ -63,7 +65,7 @@ let router=createBrowserRouter([
     },
     {
         path:'dashboard',
-        element:<Dashboard></Dashboard>,
+        element:<PrivateRoute><Dashboard></Dashboard></PrivateRoute>,
         children:[
             {
                 path:"adminDashboard",
@@ -71,11 +73,11 @@ let router=createBrowserRouter([
             },
             {
                 path:'userDashboard',
-                element:<UserDashboard></UserDashboard>
+                element:<PrivateRoute><UserDashboard></UserDashboard></PrivateRoute>
             },
             {
                 path:'users',
-                element:<Users></Users>
+                element:<AdminRoute><Users></Users></AdminRoute>
             },
             {
                 path:'allpets',
@@ -83,7 +85,7 @@ let router=createBrowserRouter([
             },
             {
                 path:'alldonations',
-                element:<AllDonations></AllDonations>
+                element:<AdminRoute><AllDonations></AllDonations></AdminRoute>
             },
             {
                 path:'addpet',

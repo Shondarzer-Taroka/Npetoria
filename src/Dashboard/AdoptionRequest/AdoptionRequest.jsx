@@ -17,7 +17,8 @@ const AdoptionRequest = () => {
     console.log(adoptorsrequest);
 
     return (
-        <div>
+        <section>
+                         <h1 className="text-3xl font-bold uppercase text-center my-7">Adoption Resquests</h1>
             <div className="overflow-x-auto">
                 <Table hoverable>
                     <TableHead>
@@ -54,7 +55,7 @@ const AdoptionRequest = () => {
                     </TableBody>
                 </Table>
             </div>
-        </div>
+        </section>
     );
 };
 

@@ -1,10 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
-import { Button, Table, TableBody, TableCell, TableHead, TableHeadCell, TableRow } from "flowbite-react";
+import { Button, Spinner, Table, TableBody, TableCell, TableHead, TableHeadCell, TableRow } from "flowbite-react";
 
 const Users = () => {
     const axiosSecure = useAxiosSecure();
-    const { data: users = [], refetch } = useQuery({
+    const { data: users = [], refetch,isLoading } = useQuery({
         queryKey: ['users'],
         queryFn: async () => {
             const res = await axiosSecure.get('/users');
@@ -22,7 +22,9 @@ const Users = () => {
     }
 
     return (
-        <section>
+     isLoading ?  <h1 className="flex justify-center"> <Spinner aria-label="Extra large spinner example" size="xl" /></h1>:   <section>
+
+<h1 className="text-3xl font-bold text-center uppercase my-7">All Users</h1>
 
             <div className="overflow-x-auto">
                 <Table>

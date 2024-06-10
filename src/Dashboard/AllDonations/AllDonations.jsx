@@ -1,12 +1,12 @@
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
-import { Button, Table, TableBody, TableCell, TableHead, TableHeadCell, TableRow } from "flowbite-react";
+import { Button, Spinner, Table, TableBody, TableCell, TableHead, TableHeadCell, TableRow } from "flowbite-react";
 import { Link } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 
 const AllDonations = () => {
     const axiosSecure = useAxiosSecure();
-    const { data: alldonations = [], refetch } = useQuery({
+    const { data: alldonations = [], refetch ,isLoading} = useQuery({
         queryKey: ['alldonations'],
         queryFn: async () => {
             const res = await axiosSecure.get('/alldonationsbyadmincampaign');
@@ -42,21 +42,22 @@ const AllDonations = () => {
         if (e.target.innerText==='paused') {
             e.target.innerText='unpaused'
 
-            const res = await axiosSecure.put(`/campaignspause/${id}`,{isPaused:'unpaused'});
+            const res = await axiosSecure.put(`/campaignspause/${id}`,{isPaused:'paused'});
             console.log(res.data);
             // return res.data;
         }
         else if ( e.target.innerText==='unpaused') {
             e.target.innerText='paused'
 
-            const res = await axiosSecure.put(`/campaignspause/${id}`,{isPaused:'paused'});
+            const res = await axiosSecure.put(`/campaignspause/${id}`,{isPaused:'unpaused'});
             console.log(res.data);
             // return res.data;
         }
         // setPause(!pause)
     }
     return (
-        <section>
+        isLoading ?  <h1 className="flex justify-center"> <Spinner aria-label="Extra large spinner example" size="xl" /></h1>:     <section>
+                    <h1 className="text-3xl font-bold text-center uppercase my-7"> All Donations</h1>
             <div className="overflow-x-auto">
                 <Table hoverable>
                     <TableHead>
@@ -79,7 +80,7 @@ const AllDonations = () => {
                                         <div className="flex gap-2">
                                             <Button onClick={()=>handledelete(value._id)} gradientMonochrome="failure">Delete</Button>
                                             <Link to={`/dashboard/onedonation/${value._id}`}><Button color="blue"  >Edit</Button></Link>
-                                            <Button onClick={()=>handlePaused(event,value._id)} color="failure" pill>{value.isPaused? value.isPaused:'paused'}</Button>
+                                            <Button onClick={()=>handlePaused(event,value._id)} color="failure" pill>{value.isPaused? (value.isPaused==='paused'? 'unpaused':'paused') :'paused'}</Button>
                                         </div>
 
                                     </TableCell>

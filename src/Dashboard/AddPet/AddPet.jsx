@@ -12,7 +12,7 @@ const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY;
 const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
 
 const AddPet = () => {
-    const {user}=useContext(AuthContext)
+    const { user } = useContext(AuthContext)
     const axiosPublic = useAxiosPublic()
     const axiosSecure = useAxiosSecure()
     const [valueCategory, setValueCategory] = useState('')
@@ -31,6 +31,7 @@ const AddPet = () => {
     const {
         register,
         handleSubmit,
+        formState: { errors }
     } = useForm()
 
     const onSubmit = async (data) => {
@@ -57,7 +58,7 @@ const AddPet = () => {
 
                 image: res.data.data.display_url,
                 date: date,
-                email:user?.email,
+                email: user?.email,
                 time: time,
                 adopted: false,
                 name: data.name,
@@ -90,56 +91,93 @@ const AddPet = () => {
 
                 <section className="flex gap-3 flex-col">
                     <article className="grid md:grid-cols-2 gap-4">
-                        <div className="flex items-center border-[1px] border-black rounded-lg w-full p-1 ">
-                            <span>Image:</span>
-                            <input className=" p-2 w-[100%] outline-none"  {...register('image', { required: true })} type="file" />
+                        <div>
+                            <div className="flex items-center border-[1px] border-black rounded-lg w-full p-1 ">
+                                <span>Image:</span>
+                                <input className=" p-2 w-[100%] outline-none"  {...register('image', { required: true })} type="file" />
+                            </div>
+
+                            {errors.image && <span className="text-red-400">This field is required</span>}
                         </div>
-                        <div className="flex items-center border-[1px] border-black rounded-lg p-1" >
-                            <span> Name:</span>
-                            <input className=" p-2 w-[100%] outline-none " type="text" {...register('name', { required: true })} id="" />
+
+
+
+
+                        <div>
+                            <div className="flex items-center border-[1px] border-black rounded-lg p-1" >
+                                <span> Name:</span>
+                                <input className=" p-2 w-[100%] outline-none " type="text" {...register('name', { required: true })} id="" />
+                            </div>
+                            {errors.name && <span className="text-red-400">This field is required</span>}
                         </div>
+
 
 
                     </article>
 
                     <article className="grid md:grid-cols-2 gap-4">
-                        <div className="flex items-center border-[1px] border-black rounded-lg p-1" >
-                            <span> Age</span>
-                            <input className=" p-2 w-[100%] outline-none " type="number" {...register('age', { required: true })} placeholder="type here Pet age" id="" />
+
+
+
+                        <div>
+                            <div className="flex items-center border-[1px] border-black rounded-lg p-1" >
+                                <span> Age</span>
+                                <input className=" p-2 w-[100%] outline-none " type="number" {...register('age', { required: true })} placeholder="type here Pet age" id="" />
+                            </div>
+                            {errors.age && <span className="text-red-400">This field is required</span>}
                         </div>
 
-                        <div className="flex items-center gap-3 justify-between border-[1px] border-black rounded-lg p-1" >
-                            <span>Pet Category:</span>
-                            <Select onChange={handleCategory} className="w-full outline-none" options={options} />
+
+
+                        <div>
+                            <div className="flex items-center gap-3 justify-between border-[1px] border-black rounded-lg p-1" >
+                                <span>Pet Category:</span>
+                                <Select onChange={handleCategory} className="w-full outline-none" options={options} />
+                            </div>
+                            {errors.age && <span className="text-red-400">This field is required</span>}
                         </div>
                     </article>
 
 
                     <article className="grid md:grid-cols-2 gap-4">
 
-                        <div className="flex items-center border-[1px] border-black rounded-lg w-full p-1 ">
-                            <span>Location:</span>
-                            <input className=" p-2 w-[100%] outline-none " type="text"{...register('location', { required: true })} placeholder="Type your Location" id="" />
+
+
+                        <div>
+                            <div className="flex items-center border-[1px] border-black rounded-lg w-full p-1 ">
+                                <span>Location:</span>
+                                <input className=" p-2 w-[100%] outline-none " type="text"{...register('location', { required: true })} placeholder="Type your Location" id="" />
+                            </div>
+                            {errors.location && <span className="text-red-400">This field is required</span>}
                         </div>
 
-                        <div className="flex items-center border-[1px] border-black rounded-lg p-1" >
-                            <span>Short description:</span>
-                            <textarea rows='2' cols='10' className=" p-2 w-[100%] outline-none "  {...register('shortDescription')} placeholder="Short description" id="" />
-                        </div>
 
+
+                        <div>
+                            <div className="flex items-center border-[1px] border-black rounded-lg p-1" >
+                                <span>Short description:</span>
+                                <textarea rows='2' cols='10' className=" p-2 w-[100%] outline-none "  {...register('shortDescription',{ required: true })} placeholder="Short description" id="" />
+                            </div>
+                            {errors.shortDescription && <span className="text-red-400">This field is required</span>}
+                        </div>
 
                     </article>
                     <article className="grid grid-cols-1 md:grid-cols-1 gap-4">
 
 
 
-                        <div className="flex items-center border-[1px] border-black rounded-lg p-1" >
-                            <textarea className="w-full h-full" placeholder="write here short description..."  {...register('longDescription')} id="" cols="30" rows="5"></textarea>
+
+
+                        <div>
+                            <div className="flex items-center border-[1px] border-black rounded-lg p-1" >
+                                <textarea className="w-full h-full" placeholder="write here short description..."  {...register('longDescription',{ required: true })} id="" cols="30" rows="5"></textarea>
+                            </div>
+                            {errors.longDescription && <span className="text-red-400">This field is required</span>}
                         </div>
 
                     </article>
                 </section>
-                <input type="submit" value={'Add Post'} className=" px-4 py-3 bg-blue-700 text-white rounded-xl w-full mt-3" name="" id="" />
+                <input type="submit" value={'Add Pet'} className=" px-4 py-3 bg-blue-700 text-white rounded-xl w-full mt-3" name="" id="" />
             </form>
             <ToastContainer></ToastContainer>
         </section>

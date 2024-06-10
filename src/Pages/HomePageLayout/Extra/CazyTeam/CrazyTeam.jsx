@@ -63,7 +63,7 @@ const CrazyTeam = () => {
                 </div>
                 <div id="imgcon" className='border'>
                     <div id='cont' className='relative'>
-                        <img className='w-full h-[322px] object-cover' src={cr4} alt="" />
+                        <img className='w-full h-[290px] object-cover' src={cr4} alt="" />
                         <div id='icons' className='absolute top-0 w-full h-full'>
                             <div id='social' className='flex gap-3 items-center justify-center h-full z-20'>
                                 <FaFacebook className=' text-3xl text-white animate__fadeInUp animate__animated  '></FaFacebook>

@@ -2,13 +2,13 @@ import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
 import { useContext } from "react";
 import { AuthContext } from "../../AuthProvider/AuthProvider";
-import { Button, Table, TableBody, TableCell, TableHead, TableHeadCell, TableRow } from "flowbite-react";
+import { Button, Spinner, Table, TableBody, TableCell, TableHead, TableHeadCell, TableRow } from "flowbite-react";
 import { ToastContainer, toast } from "react-toastify";
 
 const MyDonations = () => {
     const axiosSecure = useAxiosSecure();
     const { user } = useContext(AuthContext)
-    const { data: mydonation = [], refetch } = useQuery({
+    const { data: mydonation = [], refetch ,isLoading} = useQuery({
         queryKey: ['mydonation', user?.email],
         queryFn: async () => {
             const res = await axiosSecure.get(`/mydonation/${user?.email}`);
@@ -36,9 +36,10 @@ const MyDonations = () => {
             // Handle error and notify user
         }
     };
-    
+
     return (
-        <div>
+        isLoading ? <h1 className="flex justify-center"> <Spinner aria-label="Extra large spinner example" size="xl" /></h1>:    <section>
+            <h1 className="text-3xl font-bold uppercase text-center my-7"> My Donations</h1>
             <div className="overflow-x-auto">
                 <Table hoverable>
                     <TableHead>
@@ -56,12 +57,12 @@ const MyDonations = () => {
                             return <>
                                 <TableRow key={value._id} className="bg-white dark:border-gray-700 dark:bg-gray-800">
                                     <TableCell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
-                                      <img className="w-[60px] h-[60px]" src={  value.donateImg} alt="" />
+                                        <img className="w-[60px] h-[60px]" src={value.donateImg} alt="" />
                                     </TableCell>
                                     <TableCell>{value.donateName}</TableCell>
-                                    <TableCell>{value.amount/100}</TableCell>
+                                    <TableCell>{value.amount / 100}</TableCell>
                                     <TableCell>
-                                        <Button onClick={()=>handleRefund(value.transactionId)}>Refund</Button>
+                                        <Button onClick={() => handleRefund(value.transactionId)}>Refund</Button>
                                     </TableCell>
                                 </TableRow>
                             </>
@@ -71,7 +72,7 @@ const MyDonations = () => {
                 </Table>
             </div>
             <ToastContainer></ToastContainer>
-        </div>
+        </section>
     );
 };
 

@@ -1,14 +1,13 @@
 import { Outlet } from "react-router-dom";
-import NavBar from "../Pages/NavBar/NavBar";
-import Home from "../Pages/Home/Home";
 import MyNavBar from "../Pages/NavBar/NavBar";
-
+import 'tailwindcss/tailwind.css';
 
 
 const Root = () => {
     return (
-        <section>
-            <div className="max-w-6xl mx-auto">
+        <section className="min-h-screen bg-white dark:bg-gray-900">
+            <div className="max-w-6xl mx-auto p-4 text-black dark:text-white">
+                {/* <ThemeToggle></ThemeToggle> */}
                 {/* <NavBar></NavBar> */}
                 <MyNavBar></MyNavBar>
                 {/* <Home></Home> */}

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
@@ -8,6 +8,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import useAxiosPublic from "../../Hooks/useAxiosPublic";
 import moment from "moment";
 import { ToastContainer, toast } from "react-toastify";
+import { Spinner } from "flowbite-react";
 
 
 const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY;
@@ -36,21 +37,7 @@ const EditDonation = () => {
         }
     })
 
-    // useEffect(()=>{
-    //     setisLoading(true)
-    //     axiosSecure.get(`/onedonation/${id}`)
-    //     .then(res=>{
-    //         setOnedonation(res.data)
-    //         setisLoading(false)
-    //     })
-    // },[axiosSecure,id])
-
-    // console.log(isLoading,isPending);
-
     console.log(onedonation);
-    // setStartDate(onedonation.lastDate)
-    // console.log(onedonation.lastDate);
-
     const onSubmit = async (data) => {
         let time = moment().add(3, 'days').calendar();
         console.log(time);
@@ -105,7 +92,8 @@ const EditDonation = () => {
 
 
     return (
-      isLoading ? <h1>Loading</h1> :<section>
+      isLoading ? <h1 className="flex justify-center">  <Spinner aria-label="Extra large spinner example" size="xl" /> </h1> :<section>
+        <h1 className="font-bold text-center uppercase text-3xl my-7">Edit Donation</h1>
             <form className="" onSubmit={handleSubmit(onSubmit)}>
 
                 <section className="flex gap-3 flex-col">

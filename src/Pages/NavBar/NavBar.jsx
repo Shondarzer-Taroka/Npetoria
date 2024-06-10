@@ -15,11 +15,12 @@ import { useContext } from "react";
 import { AuthContext } from "../../AuthProvider/AuthProvider";
 import { Link, NavLink } from "react-router-dom";
 import useAdmin from "../../Hooks/useAdmin";
+import ThemeToggle from "../ThemeToggle/ThemeToggle";
 
 const MyNavBar = () => {
 
     let { user, logout, spinner } = useContext(AuthContext)
-    let [isAdmin]=useAdmin()
+    let [isAdmin] = useAdmin()
     // console.log(isAdmin);
     function handleLogOut() {
         logout()
@@ -32,17 +33,24 @@ const MyNavBar = () => {
             })
     }
     return (
-        <div>
+        <div className="">
             {/* <Button>Click me</Button> */}
+                      
+            {/* hare dark mode toggle */}
+            
             <Navbar fluid rounded>
                 <NavbarBrand href="">
-                    <img src="/src/assets/react.svg" className="mr-3 h-6 sm:h-9" alt="" />
-                    {/* <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">Flowbite React</span> */}
+                    <div className=" h-[30px] w-[100px]">
+                    <img src='https://i.ibb.co/jJXqgwq/lggg.jpg' className="mr-3 w-full h-full bg-white rounded-xl" alt="" />
+                    </div>
                 </NavbarBrand>
 
 
 
                 <div className="flex gap-2 md:order-2">
+
+
+                  <ThemeToggle></ThemeToggle>
 
                     {spinner ? <Button color="gray">
                         <Spinner aria-label="Alternate spinner button example" size="sm" />
@@ -63,12 +71,12 @@ const MyNavBar = () => {
                                     <span className="block truncate text-sm font-medium">{user?.email}</span>
                                 </DropdownHeader>
 
-                                { user && isAdmin && <DropdownItem><NavLink to={'/dashboard/adminDashboard'}>Dashboard</NavLink></DropdownItem>}
-                                { user && !isAdmin && <DropdownItem><NavLink to={'/dashboard/userDashboard'}>Dashboard</NavLink></DropdownItem>}
+                                {user && isAdmin && <DropdownItem><NavLink  className={'w-full text-left'} to={'/dashboard/adminDashboard'}>Dashboard</NavLink></DropdownItem>}
+                                {user && !isAdmin && <DropdownItem><NavLink className={'w-full text-left'}  to={'/dashboard/userDashboard'}>Dashboard</NavLink></DropdownItem>}
                                 {/* <DropdownItem>Settings</DropdownItem> */}
                                 {/* <DropdownItem>Earnings</DropdownItem> */}
                                 <DropdownDivider />
-                                <DropdownItem onClick={handleLogOut}>Log out</DropdownItem>
+                                <DropdownItem className={'w-full text-left'}  onClick={handleLogOut}>Log out</DropdownItem>
                             </Dropdown>
                         </div> :
 
@@ -96,7 +104,7 @@ const MyNavBar = () => {
                     </div> */}
                     <NavLink className={' border rounded-lg p-2 lg:border-0 lg:p-0'} to={'/'}>Home</NavLink>
                     <NavLink className={' border rounded-lg p-2 lg:border-0 lg:p-0'} to={'/petlist'}>Pet Listing</NavLink>
-                    <NavLink className={' border rounded-lg p-2 lg:border-0 lg:p-0'} to={'/donationcamp'}>DonationCampaigns</NavLink>
+                    <NavLink className={' border rounded-lg p-2 lg:border-0 lg:p-0'} to={'/donationcamp'}>Donation Campaigns</NavLink>
                 </NavbarCollapse>
             </Navbar>
         </div>
@@ -104,3 +112,10 @@ const MyNavBar = () => {
 };
 
 export default MyNavBar;
+
+
+
+
+// second
+
+

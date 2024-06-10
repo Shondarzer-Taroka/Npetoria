@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import logBG from '../../assets/9142206.jpg'
+// import logBG from '../../assets/9142206.jpg'
 import { AuthContext } from '../../AuthProvider/AuthProvider';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
@@ -172,7 +172,7 @@ const LogIn = () => {
   return (
     <div>
 
-      <div className=" rounded-lg w-full h-screen bg-cover bg-no-repeat" style={{ backgroundImage: `url(${logBG})` }}>
+      <div className=" rounded-lg w-full h-screen bg-cover bg-no-repeat" style={{ backgroundImage: `url(https://i.ibb.co/hM3yKtX/pexels-brakou-1723637.png)` }}>
 
         <section className="flex items-center justify-center w-full h-full bg-[#2222226c]">
           <form onSubmit={onsubmit}>
