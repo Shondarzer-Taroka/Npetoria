@@ -16,6 +16,7 @@ import { AuthContext } from "../../AuthProvider/AuthProvider";
 import { Link, NavLink } from "react-router-dom";
 import useAdmin from "../../Hooks/useAdmin";
 import ThemeToggle from "../ThemeToggle/ThemeToggle";
+import logo from '../../assets/banner/Logopit_1717993364435.png'
 
 const MyNavBar = () => {
 
@@ -41,7 +42,9 @@ const MyNavBar = () => {
             <Navbar fluid rounded>
                 <NavbarBrand href="">
                     <div className=" h-[30px] w-[100px]">
+                    {/* <img src={logo} className="mr-3 w-full h-full" alt="" /> */}
                     <img src='https://i.ibb.co/jJXqgwq/lggg.jpg' className="mr-3 w-full h-full bg-white rounded-xl" alt="" />
+                  
                     </div>
                 </NavbarBrand>
 

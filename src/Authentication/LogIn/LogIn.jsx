@@ -2,7 +2,7 @@ import { useContext } from 'react';
 // import logBG from '../../assets/9142206.jpg'
 import { AuthContext } from '../../AuthProvider/AuthProvider';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { toast } from 'react-toastify';
+import { ToastContainer, toast } from 'react-toastify';
 import { FaGoogle } from 'react-icons/fa';
 import { BsTwitter } from 'react-icons/bs';
 import useAxiosPublic from "../../Hooks/useAxiosPublic";
@@ -222,7 +222,7 @@ const LogIn = () => {
         </section>
 
       </div>
-      {/* <Toaster></Toaster> */}
+     <ToastContainer></ToastContainer>
     </div>
   );
 };

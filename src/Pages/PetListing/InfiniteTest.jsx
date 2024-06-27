@@ -43,7 +43,7 @@ const InfiniteSkelator = () => {
 
     const { ref, inView } = useInView();
 
- useEffect(() => {
+    useEffect(() => {
         if (inView && hasNextPage) {
             fetchNextPage();
         }
@@ -72,13 +72,15 @@ const InfiniteSkelator = () => {
                     value={category}
                     onChange={handleCategoryChange}
                     // className={`bg-red-500`}
-                    className={`${localStorage.getItem('theme')==='dark'?'bg-gray-600 text-white':'bg-white text-black'}`}
-                    // className="p-2 border rounded text-black dark:text-white"
+                    className={`${localStorage.getItem('theme') === 'dark' ? 'bg-gray-600 text-white' : 'bg-white text-black'}`}
+                // className="p-2 border rounded text-black dark:text-white"
                 >
                     <option value="">All Categories</option>
-                    <option value="dog">Dog</option>
-                    <option value="cat">Cat</option>
-                    <option value="bird">Bird</option>
+                    <option value="dog">Dogs</option>
+                    <option value="cat">Cats</option>
+                    <option value="bird">Birds</option>
+                    <option value="bird">Fish</option>
+                    <option value="bird">Farm Animals</option>
                     {/* Add more categories as needed */}
                 </select>
                 <CiSearch onClick={handleSearch} className="text-3xl font-bold cursor-pointer" />

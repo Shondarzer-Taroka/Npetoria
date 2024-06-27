@@ -170,7 +170,7 @@ const AddPet = () => {
 
                         <div>
                             <div className="flex items-center border-[1px] border-black rounded-lg p-1" >
-                                <textarea className="w-full h-full" placeholder="write here short description..."  {...register('longDescription',{ required: true })} id="" cols="30" rows="5"></textarea>
+                                <textarea className="w-full h-full" placeholder="write here Long description..."  {...register('longDescription',{ required: true })} id="" cols="30" rows="5"></textarea>
                             </div>
                             {errors.longDescription && <span className="text-red-400">This field is required</span>}
                         </div>
