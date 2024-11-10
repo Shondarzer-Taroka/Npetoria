@@ -76,11 +76,11 @@ const InfiniteSkelator = () => {
                 // className="p-2 border rounded text-black dark:text-white"
                 >
                     <option value="">All Categories</option>
-                    <option value="dog">Dogs</option>
-                    <option value="cat">Cats</option>
-                    <option value="bird">Birds</option>
-                    <option value="bird">Fish</option>
-                    <option value="bird">Farm Animals</option>
+                    <option value="Dogs">Dogs</option>
+                    <option value="Cats">Cats</option>
+                    <option value="Birds">Birds</option>
+                    <option value="Fish">Fish</option>
+                    <option value="Farm Animals">Farm Animals</option>
                     {/* Add more categories as needed */}
                 </select>
                 <CiSearch onClick={handleSearch} className="text-3xl font-bold cursor-pointer" />
