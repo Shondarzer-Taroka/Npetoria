@@ -26,98 +26,102 @@ import AdminRoute from "../Dashboard/AdminRoute/AdminRoute"
 import Error from "../Pages/Error/Error"
 
 
-let router=createBrowserRouter([
+let router = createBrowserRouter([
     {
-        path:'/',
+        path: '/',
         element: <Root></Root>,
-        errorElement:<Error></Error>,
-        children:[
+        errorElement: <Error></Error>,
+        children: [
             {
-                path:'/',
-                element:<Home></Home>
+                path: '/',
+                element: <Home></Home>
             },
-            
+
             {
-                path:'/register',
-                element:<Register></Register>
-            },
-            {
-                path:'/donationcamp',
-                element:<DonationCampaigns></DonationCampaigns>
+                path: '/register',
+                element: <Register></Register>
             },
             {
-                path:'/donationdetails/:id',
-                element:<DonationDetails></DonationDetails>
+                path: '/donationcamp',
+                element: <DonationCampaigns></DonationCampaigns>
             },
             {
-                path:'/login',
+                path: '/donationdetails/:id',
+                element: <DonationDetails></DonationDetails>
+            },
+            {
+                path: '/login',
                 element: <LogIn></LogIn>
             },
             {
-                path:'/petlist',
-                element:<PetListing></PetListing>
+                path: '/petlist',
+                element: <PetListing></PetListing>
             },
             {
-                path:'/viewdetails/:id',
-                element:<PetViewDetails></PetViewDetails>
+                path: '/viewdetails/:id',
+                element: <PetViewDetails></PetViewDetails>
+            },
+            {
+                path: '/pages/allpets',
+                element: <AllPets />
             }
         ]
     },
     {
-        path:'dashboard',
-        element:<PrivateRoute><Dashboard></Dashboard></PrivateRoute>,
-        children:[
+        path: 'dashboard',
+        element: <PrivateRoute><Dashboard></Dashboard></PrivateRoute>,
+        children: [
             {
-                path:"adminDashboard",
-                element:<AdminRoute><AdminDashboard></AdminDashboard></AdminRoute>
+                path: "adminDashboard",
+                element: <AdminRoute><AdminDashboard></AdminDashboard></AdminRoute>
             },
             {
-                path:'userDashboard',
-                element:<PrivateRoute><UserDashboard></UserDashboard></PrivateRoute>
+                path: 'userDashboard',
+                element: <PrivateRoute><UserDashboard></UserDashboard></PrivateRoute>
             },
             {
-                path:'users',
-                element:<AdminRoute><Users></Users></AdminRoute>
+                path: 'users',
+                element: <AdminRoute><Users></Users></AdminRoute>
             },
             {
-                path:'allpets',
-                element:<AdminRoute><AllPets></AllPets></AdminRoute>
+                path: 'allpets',
+                element: <AdminRoute><AllPets></AllPets></AdminRoute>
             },
             {
-                path:'alldonations',
-                element:<AdminRoute><AllDonations></AllDonations></AdminRoute>
+                path: 'alldonations',
+                element: <AdminRoute><AllDonations></AllDonations></AdminRoute>
             },
             {
-                path:'addpet',
-                element:<PrivateRoute><AddPet></AddPet></PrivateRoute>
+                path: 'addpet',
+                element: <PrivateRoute><AddPet></AddPet></PrivateRoute>
             },
             {
-                path:'myaddedpet',
-                element:<PrivateRoute><MyAddedPets></MyAddedPets></PrivateRoute>
+                path: 'myaddedpet',
+                element: <PrivateRoute><MyAddedPets></MyAddedPets></PrivateRoute>
             },
             {
-                path:'updatepet/:id',
+                path: 'updatepet/:id',
                 element: <PrivateRoute><UpdatePet></UpdatePet></PrivateRoute>
             },
             {
-                path:'adoptionrequest',
-                element:<PrivateRoute><AdoptionRequest></AdoptionRequest></PrivateRoute>
+                path: 'adoptionrequest',
+                element: <PrivateRoute><AdoptionRequest></AdoptionRequest></PrivateRoute>
             },
             {
-                path:'createdonationcampaign',
-                element:<PrivateRoute><CreateDonationCampaign></CreateDonationCampaign></PrivateRoute>
+                path: 'createdonationcampaign',
+                element: <PrivateRoute><CreateDonationCampaign></CreateDonationCampaign></PrivateRoute>
             },
             {
-                path:'mydonationcampaigns',
-                element:<PrivateRoute><MyDonationCampaigns></MyDonationCampaigns></PrivateRoute>
+                path: 'mydonationcampaigns',
+                element: <PrivateRoute><MyDonationCampaigns></MyDonationCampaigns></PrivateRoute>
             },
             {
-                path:'mydonations',
-                element:<PrivateRoute><MyDonations></MyDonations></PrivateRoute>
+                path: 'mydonations',
+                element: <PrivateRoute><MyDonations></MyDonations></PrivateRoute>
             },
             {
-                path:'onedonation/:id',
-                element:<PrivateRoute><EditDonation></EditDonation></PrivateRoute>
+                path: 'onedonation/:id',
+                element: <PrivateRoute><EditDonation></EditDonation></PrivateRoute>
             }
         ]
     }
