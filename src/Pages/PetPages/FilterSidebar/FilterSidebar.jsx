@@ -214,15 +214,15 @@
 //         const maxHandlePos = parseInt(maxHandleRef.current.style.left, 10) || sliderWidth - 16;
 //         newPosition = Math.min(newPosition, maxHandlePos - 16);
 //       } else {
-  //         const minHandlePos = parseInt(minHandleRef.current.style.left, 10) || 0;
-  //         newPosition = Math.max(minHandlePos + 16, newPosition);
-  //       }
-  
-  //       handleRef.current.style.left = newPosition + "px";
-  //       updatePriceInputs();
-  //     };
-  
-  //     const stopDrag = () => {
+//           const minHandlePos = parseInt(minHandleRef.current.style.left, 10) || 0;
+//           newPosition = Math.max(minHandlePos + 16, newPosition);
+//         }
+
+//         handleRef.current.style.left = newPosition + "px";
+//         updatePriceInputs();
+//       };
+
+//       const stopDrag = () => {
 //       document.removeEventListener("mousemove", moveHandle);
 //       document.removeEventListener("mouseup", stopDrag);
 //     };
@@ -246,22 +246,23 @@
 //     // Handle checkbox changes
 //     const handleCheckboxChange = (value, state, setState) => {
 //       if (state.includes(value)) {
-  //         setState(state.filter((item) => item !== value));
+//           setState(state.filter((item) => item !== value));
 //       } else {
-  //         setState([...state, value]);
-  //       }
-  //     };
-  
-  
-  
-  //     // Handle Apply button click
-  //     const handleApplyFilters = () => {
+//           setState([...state, value]);
+//         }
+//       };
+
+
+
+//       // Handle Apply button click
+//       const handleApplyFilters = () => {
 //       console.log("Search:", searchText);
 //       console.log("Price Range:", priceRange);
 //       console.log("Categories:", selectedCategories);
 //       console.log("Breeds:", selectedBreeds);
 //       console.log("Gender:", selectedGender);
 //       console.log("Location:", selectedLocation);
+
 //     };
 
 //   return (
@@ -313,7 +314,7 @@
 //                 type="checkbox"
 //                 className="mr-2"
 //                 onChange={() =>
-  //                   handleCheckboxChange(category, selectedCategories, setSelectedCategories)
+//                     handleCheckboxChange(category, selectedCategories, setSelectedCategories)
 //                 }
 //               />
 //               <label>{category}</label>
@@ -390,7 +391,7 @@
 
 
 
-import  { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import "./PriceRanger.css";
 
 const FilterSidebar = () => {
@@ -407,15 +408,13 @@ const FilterSidebar = () => {
 
   const minPrice = 10;
   const maxPrice = 389;
+  const priceStep = 10;
 
   const [priceRange, setPriceRange] = useState([minPrice, maxPrice]);
   const minHandleRef = useRef(null);
   const maxHandleRef = useRef(null);
   const sliderBarRef = useRef(null);
 
-  const [isOutOfBounds, setIsOutOfBounds] = useState(false);
-
-  // Function to update price inputs based on handle positions
   const updatePriceInputs = () => {
     const sliderWidth = sliderBarRef.current.offsetWidth;
     const minHandlePos = parseInt(minHandleRef.current.style.left, 10) || 0;
@@ -425,13 +424,9 @@ const FilterSidebar = () => {
     const maxValue = Math.round((maxHandlePos / (sliderWidth - 16)) * (maxPrice - minPrice) + minPrice);
 
     setPriceRange([minValue, maxValue]);
-
-    // Check if price range is out of bounds
-    setIsOutOfBounds(minValue < minPrice || maxValue > maxPrice);
   };
 
-  // Handle dragging for the min and max handles
-  const handleDrag = (handleRef, isMinHandle) => () => {
+  const handleDrag = (handleRef, isMinHandle) => (event) => {
     const sliderRect = sliderBarRef.current.getBoundingClientRect();
     const sliderWidth = sliderBarRef.current.offsetWidth;
 
@@ -466,7 +461,6 @@ const FilterSidebar = () => {
     updatePriceInputs();
   }, []);
 
-  // Handle checkbox changes
   const handleCheckboxChange = (value, state, setState) => {
     if (state.includes(value)) {
       setState(state.filter((item) => item !== value));
@@ -475,7 +469,6 @@ const FilterSidebar = () => {
     }
   };
 
-  // Handle Apply button click
   const handleApplyFilters = () => {
     console.log("Search:", searchText);
     console.log("Price Range:", priceRange);
@@ -485,43 +478,42 @@ const FilterSidebar = () => {
     console.log("Location:", selectedLocation);
   };
   return (
-    <section className="w-64 bg-white p-4 shadow-lg">
+    <section className=" bg-white p-4 shadow-lg">
       <div className="mb-4">
-        <label className="text-sm font-semibold">Filters</label>
         <input
           type="text"
           placeholder="Type Keywords..."
-          className="w-full p-2 border border-gray-300 rounded mt-2"
+          className="w-full p-2 border border-gray-300 rounded"
           value={searchText}
           onChange={(e) => setSearchText(e.target.value)}
         />
       </div>
-      <div className="filter-sidebar">
-        {/* Price Range */}
-        <div className="price-range-container">
+      <div className="price-range-container">
         <h1 className="price-range-title">Price Range</h1>
-        <div
-          className={`range-slider-bar ${isOutOfBounds ? "bg-gray-400" : ""}`}
-          ref={sliderBarRef}
-        >
+        <div className="range-slider" ref={sliderBarRef}>
           <div
-            className="range-handle range-handle-left"
-            ref={minHandleRef}
-            onMouseDown={handleDrag(minHandleRef, true)}
-          ></div>
-          <div
-            className="range-handle range-handle-right"
-            ref={maxHandleRef}
-            onMouseDown={handleDrag(maxHandleRef, false)}
-          ></div>
+            className="range-slider-bar"
+            style={{
+              background: `linear-gradient(to right, orange ${((priceRange[0] - minPrice) / (maxPrice - minPrice)) * 100}%, gray ${((priceRange[1] - minPrice) / (maxPrice - minPrice)) * 100}%)`
+            }}
+          >
+            <div
+              className="range-handle range-handle-left"
+              ref={minHandleRef}
+              onMouseDown={handleDrag(minHandleRef, true)}
+            ></div>
+            <div
+              className="range-handle range-handle-right"
+              ref={maxHandleRef}
+              onMouseDown={handleDrag(maxHandleRef, false)}
+            ></div>
+          </div>
         </div>
         <div className="range-inputs">
           <input type="text" value={`$ ${priceRange[0].toLocaleString()}`} readOnly />
           <span>-</span>
           <input type="text" value={`$ ${priceRange[1].toLocaleString()}`} readOnly />
         </div>
-      </div>
-
       </div>
       {/* Pet Categories */}
       <div className="mb-4">

@@ -96,7 +96,7 @@ const InfiniteSkelator = () => {
                             <React.Fragment key={pageIndex}>
                                 {page.results.map((value, index) => (
                                     <div key={index} className="flex flex-col gap-2 border rounded">
-                                        <img className="w-full h-[300px] object-cover p-2" src={value.image} alt="" />
+                                        <img className="w-full h-[300px] object-cover p-2 pointer-events-none" src={value.image} alt="" />
                                         <div id="content" className="mt-3 p-2">
                                             <h1 className="font-bold text-3xl">Pet Name: {value.name}</h1>
                                             <h3>Age: {value.age}</h3>
