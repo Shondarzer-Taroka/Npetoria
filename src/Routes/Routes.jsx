@@ -24,6 +24,7 @@ import AdminDashboard from "../Dashboard/AdminDashboard/AdminDashboard"
 import UserDashboard from "../Dashboard/UserDashboard/UserDashboard"
 import AdminRoute from "../Dashboard/AdminRoute/AdminRoute"
 import Error from "../Pages/Error/Error"
+import Pets from "../Pages/PetPages/Pets/Pets"
 
 
 let router = createBrowserRouter([
@@ -63,7 +64,7 @@ let router = createBrowserRouter([
             },
             {
                 path: '/pages/allpets',
-                element: <AllPets />
+                element: <Pets />
             }
         ]
     },

@@ -1,0 +1,129 @@
+/* .price-range-container {
+    font-family: Arial, sans-serif;
+    display: flex;
+    align-items: center;
+    width: 600px; 
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.price-range-title {
+    font-size: 24px;
+    color: #333;
+    margin-right: 20px; 
+}
+
+.range-slider {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    position: relative; 
+    flex-grow: 1; 
+}
+
+.range-slider-bar {
+    height: 4px;
+    flex-grow: 1;
+    background-color: #ffa500;
+    margin-right: 8px;
+    position: relative;
+}
+
+.range-handle {
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    background-color: #d31010;
+    border-radius: 50%;
+    top: -6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.range-handle-left {
+    left: 0;
+}
+
+.range-handle-right {
+    right: 0;
+}
+
+.range-inputs {
+    display: flex;
+    justify-content: space-between;
+}
+
+input[type='text'] {
+    border: 1px solid #ccc;
+    padding: 8px;
+    width: 100%;
+    max-width: 80px;
+    text-align: center;
+}
+ */
+
+ .price-range-container {
+    width: 100%;
+  }
+  
+  .price-range-title {
+    font-size: 20px;
+    margin-bottom: 10px;
+  }
+  
+  .range-slider {
+    position: relative;
+    height: 4px;
+    background-color: #ffa500;
+    margin-bottom: 10px;
+  }
+  
+  .range-slider-bar {
+    height: 4px;
+    width: 100%;
+    position: relative;
+    background-color: #ffa500;
+  }
+  
+  .range-handle {
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    background-color: #d31010;
+    border-radius: 50%;
+    top: -6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .range-handle-left {
+    left: 0;
+  }
+  
+  .range-handle-right {
+    right: 0;
+  }
+  
+  .range-inputs {
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+    
+  }
+  
+  input[type="text"] {
+    border: none;
+    outline: none;
+    width: 100%;
+  }
+
+
+
+
+  
+  .bg-gray-400 {
+    background-color: #9ca3af !important;
+  }
+  
