@@ -27,3 +27,18 @@
 #product-card:hover #bg-side {
     opacity: 1;
 }
+
+
+.fade-left {
+    transform: translateX(-10px); /* Shift to the left */
+  }
+  
+  .fade-left:not(:hover) {
+    transform: translateX(0);
+  }
+  
+  #product-card:hover .fade-left {
+    transform: translateX(-15px); /* Visible on hover */
+    transition: transform 0.3s ease, opacity 0.3s ease;
+  }
+  

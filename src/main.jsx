@@ -2,6 +2,8 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import 'react-toastify/dist/ReactToastify.css';
 import './index.css'
+import "aos/dist/aos.css";
+
 import { HelmetProvider } from 'react-helmet-async'
 import AuthProvider from './AuthProvider/AuthProvider.jsx'
 import { RouterProvider } from 'react-router-dom'
