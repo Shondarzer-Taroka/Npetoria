@@ -28,9 +28,9 @@
     opacity: 1;
 }
 
-
+/* 
 .fade-left {
-    transform: translateX(-10px); /* Shift to the left */
+    transform: translateX(-10px); 
   }
   
   .fade-left:not(:hover) {
@@ -38,7 +38,7 @@
   }
   
   #product-card:hover .fade-left {
-    transform: translateX(-15px); /* Visible on hover */
+    transform: translateX(-15px);
     transition: transform 0.3s ease, opacity 0.3s ease;
   }
-  
+   */
