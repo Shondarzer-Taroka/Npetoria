@@ -1,6 +1,7 @@
 import { Outlet } from "react-router-dom";
 import MyNavBar from "../Pages/NavBar/NavBar";
 import 'tailwindcss/tailwind.css';
+import Footer from "../Pages/Footer/Footer";
 
 
 const Root = () => {
@@ -14,7 +15,7 @@ const Root = () => {
                 <Outlet></Outlet>
         
             </div>
-            {/* <Footer></Footer> */}
+            <Footer></Footer>
             
         </section>
     );
