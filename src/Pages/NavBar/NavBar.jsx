@@ -13,13 +13,14 @@ import {
 } from "flowbite-react";
 import { useContext } from "react";
 import { AuthContext } from "../../AuthProvider/AuthProvider";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useLocation } from "react-router-dom";
 import useAdmin from "../../Hooks/useAdmin";
 import ThemeToggle from "../ThemeToggle/ThemeToggle";
 
 
 const MyNavBar = () => {
-
+    const location =useLocation()
+    
     let { user, logout, spinner } = useContext(AuthContext)
     let [isAdmin] = useAdmin()
     // console.log(isAdmin);
@@ -32,6 +33,10 @@ const MyNavBar = () => {
             .catch(err => {
                 console.log(err);
             })
+    }
+
+    if (location.pathname.includes('dashboard')) {
+        return ;
     }
     return (
         <div className="">            
