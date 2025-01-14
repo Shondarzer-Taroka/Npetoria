@@ -63,7 +63,7 @@ const AllPets = () => {
 
 
     if (allpets.length == 0) {
-        return <h1 className="text-4xl text-gray-300 font-bold text-center"> No Users </h1>
+        return <h1 className="text-4xl text-gray-300 font-bold text-center"> No Pets Data </h1>
     }
 
     return (
