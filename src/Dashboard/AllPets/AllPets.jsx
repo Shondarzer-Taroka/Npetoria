@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 const AllPets = () => {
 
     const axiosSecure = useAxiosSecure();
-    const { data: allpets = [], refetch,isLoading } = useQuery({
+    const { data: allpets = [], refetch, isLoading } = useQuery({
         queryKey: ['allpets'],
         queryFn: async () => {
             const res = await axiosSecure.get('/allpets');
@@ -19,7 +19,7 @@ const AllPets = () => {
 
     // delete pet
     function handledelete(id) {
-   
+
         axiosSecure.delete(`/petdelete/${id}`)
             .then(res => {
                 console.log(res.data);
@@ -35,29 +35,40 @@ const AllPets = () => {
         // console.log(id);
     }
 
-   async function handlePetStatus(event,id,status) {
-        console.log(event.target,id,status);
-        
-        if (status===false) {
+    async function handlePetStatus(event, id, status) {
+        console.log(event.target, id, status);
+
+        if (status === false) {
             // event.target.innerText='Adopted'
             // console.log('yes');
-            const res = await axiosSecure.patch(`/petstatusbyadmin/${id}`,{adopted:true});
+            const res = await axiosSecure.patch(`/petstatusbyadmin/${id}`, { adopted: true });
             console.log(res.data);
             if (res.data.modifiedCount) {
                 refetch()
             }
-        }  
-        else if (status===true) {
-            const res = await axiosSecure.patch(`/petstatusbyadmin/${id}`,{adopted:false});
+        }
+        else if (status === true) {
+            const res = await axiosSecure.patch(`/petstatusbyadmin/${id}`, { adopted: false });
             if (res.data.modifiedCount) {
                 refetch()
             }
             console.log(res.data);
         }
     }
+
+
+    if (isLoading) {
+        return <h1 className="flex justify-center"> <Spinner aria-label="Extra large spinner example" size="xl" /></h1>
+    }
+
+
+    if (allpets.length == 0) {
+        return <h1 className="text-4xl text-gray-300 font-bold text-center"> No Users </h1>
+    }
+
     return (
-      isLoading ? <h1 className="flex justify-center"> <Spinner aria-label="Extra large spinner example" size="xl" /></h1>:  <section>
-        <h1 className="text-3xl font-bold text-center uppercase my-7"> All pets</h1>
+        isLoading ? <h1 className="flex justify-center"> <Spinner aria-label="Extra large spinner example" size="xl" /></h1> : <section>
+            <h1 className="text-3xl font-bold text-center uppercase my-7"> All pets</h1>
             <div className="overflow-x-auto">
                 <Table hoverable>
                     <TableHead>
@@ -80,8 +91,8 @@ const AllPets = () => {
                                         <div className="flex gap-2">
                                             <Button onClick={() => handledelete(value._id)} gradientMonochrome="failure">Delete</Button>
                                             <Link to={`/dashboard/updatepet/${value._id}`}>  <Button gradientMonochrome="success">Update</Button></Link>
-                                          
-                                            <Button onClick={()=>handlePetStatus(event,value._id,value.adopted)} gradientMonochrome="purple">{value.adopted?'Adopted':'Not Adopted'}</Button>
+
+                                            <Button onClick={() => handlePetStatus(event, value._id, value.adopted)} gradientMonochrome="purple">{value.adopted ? 'Adopted' : 'Not Adopted'}</Button>
                                         </div>
 
                                     </TableCell>
