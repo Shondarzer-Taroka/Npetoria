@@ -37,6 +37,15 @@ const MyDonations = () => {
         }
     };
 
+    if (isLoading) {
+        return <h1 className="flex justify-center"> <Spinner aria-label="Extra large spinner example" size="xl" /></h1>
+    }
+
+
+    if (mydonation.length == 0) {
+        return <h1 className="text-4xl text-gray-300 font-bold text-center"> Not Found  Data </h1>
+    }
+
     return (
         isLoading ? <h1 className="flex justify-center"> <Spinner aria-label="Extra large spinner example" size="xl" /></h1>:    <section>
             <h1 className="text-3xl font-bold uppercase text-center my-7"> My Donations</h1>

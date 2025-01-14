@@ -10,6 +10,7 @@ import { useQuery } from '@tanstack/react-query';
 import useAxiosSecure from '../../Hooks/useAxiosSecure';
 import Swal from 'sweetalert2';
 import { Link } from 'react-router-dom';
+import { Spinner } from 'flowbite-react';
 
 const PetsTable = () => {
   const { user } = useContext(AuthContext);
@@ -152,6 +153,16 @@ const PetsTable = () => {
     getPaginationRowModel: getPaginationRowModel(),
     getSortedRowModel: getSortedRowModel(),
   });
+
+
+   if (isLoading) {
+          return <h1 className="flex justify-center"> <Spinner aria-label="Extra large spinner example" size="xl" /></h1>
+      }
+  
+  
+      if (myaddedpets.length == 0) {
+          return <h1 className="text-4xl text-gray-300 font-bold text-center"> No pets added by you </h1>
+      }
 
   // console.log();
   return (

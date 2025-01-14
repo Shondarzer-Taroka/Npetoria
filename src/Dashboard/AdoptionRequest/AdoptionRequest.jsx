@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
 import { useContext } from "react";
 import { AuthContext } from "../../AuthProvider/AuthProvider";
-import { Button, Table, TableBody, TableCell, TableHead, TableHeadCell, TableRow } from "flowbite-react";
+import { Button, Spinner, Table, TableBody, TableCell, TableHead, TableHeadCell, TableRow } from "flowbite-react";
 const AdoptionRequest = () => {
 
     const axiosSecure = useAxiosSecure()
@@ -14,7 +14,14 @@ const AdoptionRequest = () => {
             return res.data;
         }
     })
-    console.log(adoptorsrequest);
+    if (isLoading) {
+           return <h1 className="flex justify-center"> <Spinner aria-label="Extra large spinner example" size="xl" /></h1>
+       }
+   
+   
+       if (adoptorsrequest.length == 0) {
+           return <h1 className="text-4xl text-gray-300 font-bold text-center"> No Adoption Requests Data </h1>
+       }
 
     return (
         <section>
